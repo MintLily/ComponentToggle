@@ -7,11 +7,11 @@ Click [this link](https://melonwiki.xyz/) to get started!
 
 ### Prerequisites
 MelonLoader: v0.3.0+ (Alpha)<br>
-Game: VRChat (2021.1.3 [build 1062+])<br>
+Game: VRChat (build 1058+)<br>
 
 ### MelonPreferences (Default Values)
 ```
-[FrameFocus]
+[ComponentToggle]
 vrcpickup = true
 show_vrcpickup = true
 show_syncvideoplayer = true
@@ -30,8 +30,12 @@ show_vrcmirrorreflect - Show Mirrors<br>
 show_postprocessing - Show PostProcessing<br>
 
 ### Preview
-![Preview GIF](https://kortyboi.com/img/upload/)<br>
+![Preview 1](https://kortyboi.com/img/upload/VRChat_ZmRFcJMvyb.jpg)<br>
+![Preview 2](https://kortyboi.com/img/upload/VRChat_sojfrXy4Gy.png)<br>
 
 # Change Log
 ### v1.0.0
 * Initial Release
+
+# Credits
+DubyaDude, Emilia, Tritn - [RubyButtonAPI](https://github.com/DubyaDude/RubyButtonAPI)
