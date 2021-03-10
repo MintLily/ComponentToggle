@@ -9,31 +9,35 @@ Click [this link](https://melonwiki.xyz/) to get started!
 MelonLoader: v0.3.0+ (Alpha)<br>
 Game: VRChat (build 1058+)<br>
 
-### MelonPreferences (Default Values)
+### /UserData/ComponentToggleConfig.json (Default Values)
 ```
-[ComponentToggle]
-vrcpickup = true
-show_vrcpickup = true
-show_syncvideoplayer = true
-show_pensAndErasers = true
-show_vrcstation = true
-show_vrcmirrorreflect = true
-show_postprocessing = true
+{
+  "VRC_Pickup": false,
+  "VRC_Pickup_Objects": true,
+  "VRC_SyncVideoPlayer": true,
+  "Pens": true,
+  "VRC_Station": true,
+  "VRC_MirrorReflect": true,
+  "PostProcessing": true
+}
 ```
 <br>
-vrcpickup - Allow Pickups<br>
-show_vrcpickup - Show Pickups<br>
-show_syncvideoplayer - Show Video Players<br>
-show_pensAndErasers - Show Pens & Erasers<br>
-show_vrcstation - Allow yourself to sit in chairs<br>
-show_vrcmirrorreflect - Show Mirrors<br>
-show_postprocessing - Show PostProcessing<br>
+VRC_Pickup - Allow Pickups<br>
+VRC_Pickup_Objects - Show Pickups<br>
+VRC_SyncVideoPlayer - Show Video Players<br>
+Pens - Show Pens & Erasers<br>
+VRC_Station - Allow yourself to sit in chairs<br>
+VRC_MirrorReflect - Show Mirrors<br>
+PostProcessing - Show PostProcessing<br>
 
 ### Preview
 ![Preview 1](https://kortyboi.com/img/upload/VRChat_ZmRFcJMvyb.jpg)<br>
 ![Preview 2](https://kortyboi.com/img/upload/VRChat_sojfrXy4Gy.png)<br>
 
 # Change Log
+### v1.1.0
+* Added Custom Configuration - this is to reduce the amount of console spam for saving the preferences
+
 ### v1.0.0
 * Initial Release
 
