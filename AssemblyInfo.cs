@@ -21,6 +21,7 @@ using MelonLoader;
     ComponentToggle.BuildInfo.Version,
     ComponentToggle.BuildInfo.Author,
     ComponentToggle.BuildInfo.DownloadLink)]
+[assembly: MelonColor(System.ConsoleColor.Magenta)]
 
 //[assembly: MelonOptionalDependencies("", "", "", "")]
 // Create and Setup a MelonModGame to mark a Mod as Universal or Compatible with specific Games.
