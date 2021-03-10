@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using ComponentToggle.Utilities.Config;
 
 namespace ComponentToggle.Components
 {
@@ -86,13 +87,13 @@ namespace ComponentToggle.Components
 
             foreach (var gameObject in penArray)
             {
-                gameObject.gameObject.SetActive(Main.Pens.Value);
+                gameObject.gameObject.SetActive(CustomConfig.Get().Pens);
             }
 
             foreach (var gameObject in Markers)
             {
-                gameObject.GetComponent<VRC.SDK.Internal.Whiteboard.Marker>().enabled = Main.Pens.Value;
-                gameObject.gameObject.SetActive(Main.VRC_Pickup_Objects.Value);
+                gameObject.GetComponent<VRC.SDK.Internal.Whiteboard.Marker>().enabled = CustomConfig.Get().Pens;
+                gameObject.gameObject.SetActive(CustomConfig.Get().VRC_Pickup_Objects);
             }
         }
     }

@@ -8,6 +8,7 @@ using MelonLoader;
 using RubyButtonAPI;
 using UnityEngine;
 using ComponentToggle.Components;
+using ComponentToggle.Utilities.Config;
 
 namespace ComponentToggle
 {
@@ -29,94 +30,94 @@ namespace ComponentToggle
 
             TogglePickup = new QMToggleButton(menu, 1, 0, "VRC_Pickup", () =>
             {
-                Main.VRC_Pickup.Value = true;
-                MelonLoader.MelonPreferences.Save();
+                CustomConfig.Get().VRC_Pickup = true;
+                CustomConfig.Save();
                 VRCPickup.Toggle();
             }, "Disabled", () =>
             {
-                Main.VRC_Pickup.Value = false;
-                MelonLoader.MelonPreferences.Save();
+                CustomConfig.Get().VRC_Pickup = false;
+                CustomConfig.Save();
                 VRCPickup.Toggle();
             }, "TOGGLE: Keep Objects visible, but disable you being able to pick them up.");
 
             TogglePickupObject = new QMToggleButton(menu, 2, 0, "Pickup Objects", () =>
             {
-                Main.VRC_Pickup_Objects.Value = true;
-                MelonLoader.MelonPreferences.Save();
+                CustomConfig.Get().VRC_Pickup_Objects = true;
+                CustomConfig.Save();
                 VRCPickup.Toggle();
             }, "Disabled", () =>
             {
-                Main.VRC_Pickup_Objects.Value = false;
-                MelonLoader.MelonPreferences.Save();
+                CustomConfig.Get().VRC_Pickup_Objects = false;
+                CustomConfig.Save();
                 VRCPickup.Toggle();
             }, "TOGGLE: Change the visibility of pickup-able objects");
 
             ToggleVideoPlayers = new QMToggleButton(menu, 3, 0, "Video Players", () =>
             {
-                Main.VRC_SyncVideoPlayer.Value = true;
-                MelonLoader.MelonPreferences.Save();
+                CustomConfig.Get().VRC_SyncVideoPlayer = true;
+                CustomConfig.Save();
                 _VRCSyncVideoPlayer.Toggle();
             }, "Disabled", () =>
             {
-                Main.VRC_SyncVideoPlayer.Value = false;
-                MelonLoader.MelonPreferences.Save();
+                CustomConfig.Get().VRC_SyncVideoPlayer = false;
+                CustomConfig.Save();
                 _VRCSyncVideoPlayer.Toggle();
             }, "TOGGLE: Video Players\n<color=red>Does not work in Udon Worlds</color>");
 
             TogglePens = new QMToggleButton(menu, 4, 0, "Pens", () =>
             {
-                Main.Pens.Value = true;
-                MelonLoader.MelonPreferences.Save();
+                CustomConfig.Get().Pens = true;
+                CustomConfig.Save();
                 Pens.Toggle();
             }, "Disabled", () =>
             {
-                Main.Pens.Value = false;
-                MelonLoader.MelonPreferences.Save();
+                CustomConfig.Get().Pens = false;
+                CustomConfig.Save();
                 Pens.Toggle();
             }, "TOGGLE: Pens & Erasers");
 
             ToggleStation = new QMToggleButton(menu, 1, 1, "Chairs", () =>
             {
-                Main.VRC_Station.Value = true;
-                MelonLoader.MelonPreferences.Save();
+                CustomConfig.Get().VRC_Station = true;
+                CustomConfig.Save();
             }, "Disabled", () =>
             {
-                Main.VRC_Station.Value = false;
-                MelonLoader.MelonPreferences.Save();
+                CustomConfig.Get().VRC_Station = false;
+                CustomConfig.Save();
             }, "TOGGLE: Ability to sit in chairs");
 
             ToggleMirror = new QMToggleButton(menu, 2, 1, "Mirrors", () =>
             {
-                Main.VRC_MirrorReflect.Value = true;
-                MelonLoader.MelonPreferences.Save();
+                CustomConfig.Get().VRC_MirrorReflect = true;
+                CustomConfig.Save();
                 VRCMirrorReflect.Toggle();
             }, "Disabled", () =>
             {
-                Main.VRC_MirrorReflect.Value = false;
-                MelonLoader.MelonPreferences.Save();
+                CustomConfig.Get().VRC_MirrorReflect = false;
+                CustomConfig.Save();
                 VRCMirrorReflect.Toggle();
             }, "TOGGLE: All Mirrors");
 
             TogglePostProcessing = new QMToggleButton(menu, 3, 1, "PostProcessing", () =>
             {
-                Main.PostProcessing.Value = true;
-                MelonLoader.MelonPreferences.Save();
+                CustomConfig.Get().PostProcessing = true;
+                CustomConfig.Save();
                 PostProcessing.Toggle();
             }, "Disabled", () =>
             {
-                Main.PostProcessing.Value = false;
-                MelonLoader.MelonPreferences.Save();
+                CustomConfig.Get().PostProcessing = false;
+                CustomConfig.Save();
                 PostProcessing.Toggle();
             }, "TOGGLE: Post Processing");
 
             // Sets Toggle States on UI Init
-            TogglePickup.setToggleState(Main.VRC_Pickup.Value);
-            TogglePickupObject.setToggleState(Main.VRC_Pickup_Objects.Value);
-            ToggleVideoPlayers.setToggleState(Main.VRC_SyncVideoPlayer.Value);
-            TogglePens.setToggleState(Main.Pens.Value);
-            ToggleStation.setToggleState(Main.VRC_Station.Value);
-            ToggleMirror.setToggleState(Main.VRC_MirrorReflect.Value);
-            TogglePostProcessing.setToggleState(Main.PostProcessing.Value);
+            TogglePickup.setToggleState(CustomConfig.Get().VRC_Pickup);
+            TogglePickupObject.setToggleState(CustomConfig.Get().VRC_Pickup_Objects);
+            ToggleVideoPlayers.setToggleState(CustomConfig.Get().VRC_SyncVideoPlayer);
+            TogglePens.setToggleState(CustomConfig.Get().Pens);
+            ToggleStation.setToggleState(CustomConfig.Get().VRC_Station);
+            ToggleMirror.setToggleState(CustomConfig.Get().VRC_MirrorReflect);
+            TogglePostProcessing.setToggleState(CustomConfig.Get().PostProcessing);
         }
 
         public static bool WorldWasChanged = false;
@@ -127,13 +128,13 @@ namespace ComponentToggle
             if (WorldWasChanged)
             {
                 WorldWasChanged = false;
-                TogglePickup.setToggleState(Main.VRC_Pickup.Value, true);
-                TogglePickupObject.setToggleState(Main.VRC_Pickup_Objects.Value, true);
-                ToggleVideoPlayers.setToggleState(Main.VRC_SyncVideoPlayer.Value, true);
-                TogglePens.setToggleState(Main.Pens.Value, true);
-                ToggleStation.setToggleState(Main.VRC_Station.Value, true);
-                ToggleMirror.setToggleState(Main.VRC_MirrorReflect.Value, true);
-                TogglePostProcessing.setToggleState(Main.PostProcessing.Value, true);
+                TogglePickup.setToggleState(CustomConfig.Get().VRC_Pickup, true);
+                TogglePickupObject.setToggleState(CustomConfig.Get().VRC_Pickup_Objects, true);
+                ToggleVideoPlayers.setToggleState(CustomConfig.Get().VRC_SyncVideoPlayer, true);
+                TogglePens.setToggleState(CustomConfig.Get().Pens, true);
+                ToggleStation.setToggleState(CustomConfig.Get().VRC_Station, true);
+                ToggleMirror.setToggleState(CustomConfig.Get().VRC_MirrorReflect, true);
+                TogglePostProcessing.setToggleState(CustomConfig.Get().PostProcessing, true);
             }
             yield break;
         }

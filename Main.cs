@@ -3,6 +3,7 @@ using UnityEngine;
 using System;
 using UnityEngine.XR;
 using ComponentToggle.Components;
+using ComponentToggle.Utilities.Config;
 
 namespace ComponentToggle
 {
@@ -19,14 +20,6 @@ namespace ComponentToggle
     public class Main : MelonMod
     {
         public static bool isDebug;
-        public static MelonPreferences_Category melon;
-        public static MelonPreferences_Entry<bool> VRC_Pickup;
-        public static MelonPreferences_Entry<bool> VRC_Pickup_Objects;
-        public static MelonPreferences_Entry<bool> VRC_SyncVideoPlayer;
-        public static MelonPreferences_Entry<bool> Pens;
-        public static MelonPreferences_Entry<bool> VRC_Station;
-        public static MelonPreferences_Entry<bool> VRC_MirrorReflect;
-        public static MelonPreferences_Entry<bool> PostProcessing;
 
         public override void OnApplicationStart() // Runs after Game Initialization.
         {
@@ -35,15 +28,6 @@ namespace ComponentToggle
                 isDebug = true;
                 MelonLogger.Msg("Debug mode is active");
             }
-
-            melon = MelonPreferences.CreateCategory(BuildInfo.Name, BuildInfo.Name);
-            VRC_Pickup = (MelonPreferences_Entry<bool>)melon.CreateEntry("vrcpickup", true, "Allow Pickups");
-            VRC_Pickup_Objects = (MelonPreferences_Entry<bool>)melon.CreateEntry("show_vrcpickup", true, "Show Pickups");
-            VRC_SyncVideoPlayer = (MelonPreferences_Entry<bool>)melon.CreateEntry("show_syncvideoplayer", true, "Show Video Players");
-            Pens = (MelonPreferences_Entry<bool>)melon.CreateEntry("show_pensAndErasers", true, "Show Pens & Erasers");
-            VRC_Station = (MelonPreferences_Entry<bool>)melon.CreateEntry("show_vrcstation", true, "Allow yourself to sit in chairs");
-            VRC_MirrorReflect = (MelonPreferences_Entry<bool>)melon.CreateEntry("show_vrcmirrorreflect", true, "Show Mirrors");
-            PostProcessing = (MelonPreferences_Entry<bool>)melon.CreateEntry("show_postprocessing", true, "Show PostProcessing");
 
             MelonLogger.Msg("Initialized!");
         }
@@ -72,23 +56,23 @@ namespace ComponentToggle
             {
                 MelonLogger.Msg("[Debug] \n" +
                     " ================= Preferences Values: ============== \n" +
-                    " ============== bool VRC_Pickup            = " + VRC_Pickup.Value.ToString() + "\n" +
-                    " ============== bool VRC_Pickup_Objects    = " + VRC_Pickup_Objects.Value.ToString() + "\n" +
-                    " ============== bool VRC_SyncVideoPlayer   = " + VRC_SyncVideoPlayer.Value.ToString() + "\n" +
-                    " ============== bool Pens                  = " + Pens.Value.ToString() + "\n" +
-                    " ============== bool VRC_Station           = " + VRC_Station.Value.ToString() + "\n" +
-                    " ============== bool VRC_MirrorReflect     = " + VRC_MirrorReflect.Value.ToString() + "\n" +
-                    " ============== bool PostProcessing        = " + PostProcessing.Value.ToString() + "\n" +
+                    " ============== bool VRC_Pickup            = " + CustomConfig.Get().VRC_Pickup.ToString() + "\n" +
+                    " ============== bool VRC_Pickup_Objects    = " + CustomConfig.Get().VRC_Pickup_Objects.ToString() + "\n" +
+                    " ============== bool VRC_SyncVideoPlayer   = " + CustomConfig.Get().VRC_SyncVideoPlayer.ToString() + "\n" +
+                    " ============== bool Pens                  = " + CustomConfig.Get().Pens.ToString() + "\n" +
+                    " ============== bool VRC_Station           = " + CustomConfig.Get().VRC_Station.ToString() + "\n" +
+                    " ============== bool VRC_MirrorReflect     = " + CustomConfig.Get().VRC_MirrorReflect.ToString() + "\n" +
+                    " ============== bool PostProcessing        = " + CustomConfig.Get().PostProcessing.ToString() + "\n" +
                     " ====================================================");
             }
             // Sets Toggle States on Pref Save
-            Menu.TogglePickup.setToggleState(Main.VRC_Pickup.Value);
-            Menu.TogglePickupObject.setToggleState(Main.VRC_Pickup_Objects.Value);
-            Menu.ToggleVideoPlayers.setToggleState(Main.VRC_SyncVideoPlayer.Value);
-            Menu.TogglePens.setToggleState(Main.Pens.Value);
-            Menu.ToggleStation.setToggleState(Main.VRC_Station.Value);
-            Menu.ToggleMirror.setToggleState(Main.VRC_MirrorReflect.Value);
-            Menu.TogglePostProcessing.setToggleState(Main.PostProcessing.Value);
+            Menu.TogglePickup.setToggleState(CustomConfig.Get().VRC_Pickup);
+            Menu.TogglePickupObject.setToggleState(CustomConfig.Get().VRC_Pickup_Objects);
+            Menu.ToggleVideoPlayers.setToggleState(CustomConfig.Get().VRC_SyncVideoPlayer);
+            Menu.TogglePens.setToggleState(CustomConfig.Get().Pens);
+            Menu.ToggleStation.setToggleState(CustomConfig.Get().VRC_Station);
+            Menu.ToggleMirror.setToggleState(CustomConfig.Get().VRC_MirrorReflect);
+            Menu.TogglePostProcessing.setToggleState(CustomConfig.Get().PostProcessing);
         }
     }
 }

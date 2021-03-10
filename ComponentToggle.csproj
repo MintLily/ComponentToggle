@@ -105,6 +105,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\RubyButtonAPI.cs" />
+    <Compile Include="Utilities\Config\CustomConfig.cs" />
     <Compile Include="Utilities\Patches.cs" />
     <Compile Include="Utilities\Utilities.cs" />
     <Compile Include="AssemblyInfo.cs" />

@@ -8,6 +8,7 @@ using UnityEngine;
 using VRC;
 using VRC.SDKBase;
 using VRCSDK2;
+using ComponentToggle.Utilities.Config;
 
 namespace ComponentToggle.Components
 {
@@ -33,14 +34,12 @@ namespace ComponentToggle.Components
 
             foreach (var gameObject in stored_sdk2)
             {
-                gameObject.GetComponent<VRCSDK2.VRC_MirrorReflection>().enabled = Main.VRC_MirrorReflect.Value;
-                //gameObject.gameObject.SetActive(Main.VRC_MirrorReflect.Value);
+                gameObject.GetComponent<VRCSDK2.VRC_MirrorReflection>().enabled = CustomConfig.Get().VRC_MirrorReflect;
             }
 
             foreach (var gameObject in stored_sdk3)
             {
-                gameObject.GetComponent<MirrorReflection>().enabled = Main.VRC_MirrorReflect.Value;
-                //gameObject.gameObject.SetActive(Main.VRC_MirrorReflect.Value);
+                gameObject.GetComponent<MirrorReflection>().enabled = CustomConfig.Get().VRC_MirrorReflect;
             }
         }
     }

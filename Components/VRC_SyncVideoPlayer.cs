@@ -10,6 +10,7 @@ using VRC.SDKBase;
 using VRCSDK2;
 using ComponentToggle.Utilities;
 using System.Collections;
+using ComponentToggle.Utilities.Config;
 
 namespace ComponentToggle.Components
 {
@@ -40,8 +41,8 @@ namespace ComponentToggle.Components
                     MelonLogger.Msg("Detected Action in SDK3 World");
                 foreach (var gameObject in stored_sdk3)
                 {
-                    gameObject.GetComponent<SyncVideoPlayer>().enabled = Main.VRC_SyncVideoPlayer.Value;
-                    gameObject.gameObject.SetActive(Main.VRC_SyncVideoPlayer.Value);
+                    gameObject.GetComponent<SyncVideoPlayer>().enabled = CustomConfig.Get().VRC_SyncVideoPlayer;
+                    gameObject.gameObject.SetActive(CustomConfig.Get().VRC_SyncVideoPlayer);
                 }
             }
             else
@@ -49,8 +50,8 @@ namespace ComponentToggle.Components
                 if (stored_sdk2 == null) Store();
                 foreach (var gameObject in stored_sdk2)
                 {
-                    gameObject.GetComponent<VRC_SyncVideoPlayer>().enabled = Main.VRC_SyncVideoPlayer.Value;
-                    gameObject.gameObject.SetActive(Main.VRC_SyncVideoPlayer.Value);
+                    gameObject.GetComponent<VRC_SyncVideoPlayer>().enabled = CustomConfig.Get().VRC_SyncVideoPlayer;
+                    gameObject.gameObject.SetActive(CustomConfig.Get().VRC_SyncVideoPlayer);
                 }
             }
         }

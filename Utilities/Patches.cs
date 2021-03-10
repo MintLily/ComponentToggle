@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Harmony;
+using ComponentToggle.Utilities.Config;
 
 namespace ComponentToggle.Utilities
 {
@@ -21,7 +22,7 @@ namespace ComponentToggle.Utilities
 
         private static bool CanUseStation(ref bool __result, VRC.Player __0, bool __1)
         {
-            if (__0 != null && __0 == VRCPlayer.field_Internal_Static_VRCPlayer_0.field_Private_Player_0 && !Main.VRC_Station.Value)
+            if (__0 != null && __0 == VRCPlayer.field_Internal_Static_VRCPlayer_0.field_Private_Player_0 && !CustomConfig.Get().VRC_Station)
             {
                 __result = false;
                 return false;

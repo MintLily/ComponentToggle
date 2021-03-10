@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using MelonLoader;
 using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
+using ComponentToggle.Utilities.Config;
 
 namespace ComponentToggle.Components
 {
@@ -25,11 +26,11 @@ namespace ComponentToggle.Components
             {
                 if (cam.GetComponent<PostProcessLayer>() != null)
                 {
-                    if (Main.PostProcessing.Value != cam.GetComponent<PostProcessLayer>().enabled)
+                    if (CustomConfig.Get().PostProcessing != cam.GetComponent<PostProcessLayer>().enabled)
                     {
                         if (Main.isDebug)
-                            MelonLogger.Msg(Main.PostProcessing.Value ? "Removed Post Processing" : "Re-added Post Processing");
-                        cam.GetComponent<PostProcessLayer>().enabled = Main.PostProcessing.Value;
+                            MelonLogger.Msg(CustomConfig.Get().PostProcessing ? "Removed Post Processing" : "Re-added Post Processing");
+                        cam.GetComponent<PostProcessLayer>().enabled = CustomConfig.Get().PostProcessing;
                     }
                 }
             }
@@ -45,11 +46,11 @@ namespace ComponentToggle.Components
                 {
                     if (cam.GetComponent<PostProcessLayer>() != null)
                     {
-                        if (Main.PostProcessing.Value != cam.GetComponent<PostProcessLayer>().enabled)
+                        if (CustomConfig.Get().PostProcessing != cam.GetComponent<PostProcessLayer>().enabled)
                         {
                             if (Main.isDebug)
-                                MelonLogger.Msg(Main.PostProcessing.Value ? "Auto Removed Post Processing" : "Auto Re-added Post Processing");
-                            cam.GetComponent<PostProcessLayer>().enabled = Main.PostProcessing.Value;
+                                MelonLogger.Msg(CustomConfig.Get().PostProcessing ? "Auto Removed Post Processing" : "Auto Re-added Post Processing");
+                            cam.GetComponent<PostProcessLayer>().enabled = CustomConfig.Get().PostProcessing;
                         }
                     }
                 }

@@ -7,6 +7,7 @@ using MelonLoader;
 using UnityEngine;
 using VRC;
 using VRC.SDKBase;
+using ComponentToggle.Utilities.Config;
 
 namespace ComponentToggle.Components
 {
@@ -30,8 +31,8 @@ namespace ComponentToggle.Components
 
             foreach (var gameObject in stored)
             {
-                gameObject.GetComponent<VRC_Pickup>().pickupable = Main.VRC_Pickup.Value;
-                gameObject.gameObject.SetActive(Main.VRC_Pickup_Objects.Value);
+                gameObject.GetComponent<VRC_Pickup>().pickupable = CustomConfig.Get().VRC_Pickup;
+                gameObject.gameObject.SetActive(CustomConfig.Get().VRC_Pickup_Objects);
             }
         }
     }
