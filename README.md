@@ -35,6 +35,11 @@ PostProcessing - Show PostProcessing<br>
 ![Preview 2](https://kortyboi.com/img/upload/VRChat_sojfrXy4Gy.png)<br>
 
 # Change Log
+### v1.2.0
+* Added a Blocked World List - joining certain worlds will disable some actions
+-- i.e. If you join Murder 4, VRC_Pickup toggle buttons cannot be toggled, and pickups are forced to be shown and interactable
+* Fixed Chairs toggle's action being opposite
+
 ### v1.1.0
 * Added Custom Configuration - this is to reduce the amount of console spam for saving the preferences
 
