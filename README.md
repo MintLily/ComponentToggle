@@ -7,7 +7,7 @@ Click [this link](https://melonwiki.xyz/) to get started!
 
 ### Prerequisites
 MelonLoader: v0.3.0+ (Alpha)<br>
-Game: VRChat (build 1058+)<br>
+Game: VRChat (build 1061+)<br>
 
 ### /UserData/ComponentToggleConfig.json (Default Values)
 ```
