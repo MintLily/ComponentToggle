@@ -81,19 +81,30 @@ namespace ComponentToggle.Components
             //penArray.Add(GenericEraser_9);
         }
 
-        public static void Toggle()
+        public static void Toggle(bool tempOn = false)
         {
             if (penArray == null) OnLevelLoad();
 
             foreach (var gameObject in penArray)
             {
-                gameObject.gameObject.SetActive(CustomConfig.Get().Pens);
+                if (tempOn)
+                    gameObject.gameObject.SetActive(true);
+                else
+                    gameObject.gameObject.SetActive(CustomConfig.Get().Pens);
             }
 
             foreach (var gameObject in Markers)
             {
-                gameObject.GetComponent<VRC.SDK.Internal.Whiteboard.Marker>().enabled = CustomConfig.Get().Pens;
-                gameObject.gameObject.SetActive(CustomConfig.Get().VRC_Pickup_Objects);
+                if (tempOn)
+                {
+                    gameObject.GetComponent<VRC.SDK.Internal.Whiteboard.Marker>().enabled = true;
+                    gameObject.gameObject.SetActive(true);
+                }
+                else
+                {
+                    gameObject.GetComponent<VRC.SDK.Internal.Whiteboard.Marker>().enabled = CustomConfig.Get().Pens;
+                    gameObject.gameObject.SetActive(CustomConfig.Get().Pens);
+                }
             }
         }
     }

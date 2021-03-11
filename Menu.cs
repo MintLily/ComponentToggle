@@ -15,13 +15,13 @@ namespace ComponentToggle
     class Menu
     {
         private static QMNestedButton menu;
-        public static QMToggleButton TogglePickup;
-        public static QMToggleButton TogglePickupObject;
-        public static QMToggleButton ToggleVideoPlayers;
-        public static QMToggleButton TogglePens;
-        public static QMToggleButton ToggleStation;
-        public static QMToggleButton ToggleMirror;
-        public static QMToggleButton TogglePostProcessing;
+        private static QMToggleButton TogglePickup;
+        private static QMToggleButton TogglePickupObject;
+        private static QMToggleButton ToggleVideoPlayers;
+        private static QMToggleButton TogglePens;
+        private static QMToggleButton ToggleStation;
+        private static QMToggleButton ToggleMirror;
+        private static QMToggleButton TogglePostProcessing;
 
         public static void Init()
         {
@@ -111,13 +111,18 @@ namespace ComponentToggle
             }, "TOGGLE: Post Processing");
 
             // Sets Toggle States on UI Init
-            TogglePickup.setToggleState(CustomConfig.Get().VRC_Pickup);
-            TogglePickupObject.setToggleState(CustomConfig.Get().VRC_Pickup_Objects);
-            ToggleVideoPlayers.setToggleState(CustomConfig.Get().VRC_SyncVideoPlayer);
-            TogglePens.setToggleState(CustomConfig.Get().Pens);
-            ToggleStation.setToggleState(CustomConfig.Get().VRC_Station);
-            ToggleMirror.setToggleState(CustomConfig.Get().VRC_MirrorReflect);
-            TogglePostProcessing.setToggleState(CustomConfig.Get().PostProcessing);
+            setAllButtonToggleStates(false);
+        }
+
+        public static void setAllButtonToggleStates(bool Invoke)
+        {
+            TogglePickup.setToggleState(CustomConfig.Get().VRC_Pickup, Invoke);
+            TogglePickupObject.setToggleState(CustomConfig.Get().VRC_Pickup_Objects, Invoke);
+            ToggleVideoPlayers.setToggleState(CustomConfig.Get().VRC_SyncVideoPlayer, Invoke);
+            TogglePens.setToggleState(CustomConfig.Get().Pens, Invoke);
+            ToggleStation.setToggleState(CustomConfig.Get().VRC_Station, Invoke);
+            ToggleMirror.setToggleState(CustomConfig.Get().VRC_MirrorReflect, Invoke);
+            TogglePostProcessing.setToggleState(CustomConfig.Get().PostProcessing, Invoke);
         }
 
         public static bool WorldWasChanged = false;
@@ -128,15 +133,48 @@ namespace ComponentToggle
             if (WorldWasChanged)
             {
                 WorldWasChanged = false;
-                TogglePickup.setToggleState(CustomConfig.Get().VRC_Pickup, true);
-                TogglePickupObject.setToggleState(CustomConfig.Get().VRC_Pickup_Objects, true);
-                ToggleVideoPlayers.setToggleState(CustomConfig.Get().VRC_SyncVideoPlayer, true);
-                TogglePens.setToggleState(CustomConfig.Get().Pens, true);
-                ToggleStation.setToggleState(CustomConfig.Get().VRC_Station, true);
-                ToggleMirror.setToggleState(CustomConfig.Get().VRC_MirrorReflect, true);
-                TogglePostProcessing.setToggleState(CustomConfig.Get().PostProcessing, true);
+                setAllButtonToggleStates(true);
             }
             yield break;
+        }
+
+        public static void BlockActions(int buttonNumber)
+        {
+            switch (buttonNumber)
+            {
+                case 1:
+                    TogglePickup.Disabled(true);
+                    TogglePickupObject.Disabled(true);
+                    VRCPickup.Toggle(true);
+                    break;
+                case 2:
+                    ToggleVideoPlayers.Disabled(true);
+                    _VRCSyncVideoPlayer.Toggle(true);
+                    break;
+                case 3:
+                    TogglePens.Disabled(true);
+                    Pens.Toggle(true);
+                    break;
+                case 4:
+                    ToggleStation.Disabled(true);
+                    break;
+                case 5:
+                    ToggleMirror.Disabled(true);
+                    VRCMirrorReflect.Toggle(true);
+                    break;
+                case 6:
+                    TogglePostProcessing.Disabled(true);
+                    break;
+                default:
+                    TogglePickup.Disabled(false);
+                    TogglePickupObject.Disabled(false);
+                    ToggleVideoPlayers.Disabled(false);
+                    TogglePens.Disabled(false);
+                    ToggleStation.Disabled(false);
+                    ToggleMirror.Disabled(false);
+                    TogglePostProcessing.Disabled(false);
+                    break;
+            }
         }
     }
 }

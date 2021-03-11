@@ -32,23 +32,17 @@ namespace ComponentToggle.Components
                 stored_sdk2 = Resources.FindObjectsOfTypeAll<VRC_SyncVideoPlayer>();
         }
 
-        public static void Toggle()
+        public static void Toggle(bool tempOn = false)
         {
-            if (RoomExtensions.GetWorld() != null && Resources.FindObjectsOfTypeAll<VRC.SDK3.Components.VRCSceneDescriptor>().Count > 0)
+            if (stored_sdk2 == null) Store();
+            foreach (var gameObject in stored_sdk2)
             {
-                if (stored_sdk3 == null) Store();
-                if (Main.isDebug)
-                    MelonLogger.Msg("Detected Action in SDK3 World");
-                foreach (var gameObject in stored_sdk3)
+                if (tempOn)
                 {
-                    gameObject.GetComponent<SyncVideoPlayer>().enabled = CustomConfig.Get().VRC_SyncVideoPlayer;
-                    gameObject.gameObject.SetActive(CustomConfig.Get().VRC_SyncVideoPlayer);
+                    gameObject.GetComponent<VRC_SyncVideoPlayer>().enabled = true;
+                    gameObject.gameObject.SetActive(true);
                 }
-            }
-            else
-            {
-                if (stored_sdk2 == null) Store();
-                foreach (var gameObject in stored_sdk2)
+                else
                 {
                     gameObject.GetComponent<VRC_SyncVideoPlayer>().enabled = CustomConfig.Get().VRC_SyncVideoPlayer;
                     gameObject.gameObject.SetActive(CustomConfig.Get().VRC_SyncVideoPlayer);

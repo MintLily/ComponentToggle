@@ -70,6 +70,11 @@ namespace RubyButtonAPI
             button.gameObject.GetComponent<Button>().interactable = isIntractable;
         }
 
+        public void Disabled(bool gameObjectDisabled)
+        {
+            button.GetComponent<Button>().enabled = !gameObjectDisabled;
+        }
+
         public void setLocation(int buttonXLoc, int buttonYLoc)
         {
             button.GetComponent<RectTransform>().anchoredPosition += Vector2.right * (420 * (buttonXLoc + initShift[0]));

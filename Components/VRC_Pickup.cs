@@ -25,14 +25,22 @@ namespace ComponentToggle.Components
             stored = UnityEngine.Object.FindObjectsOfType<VRC_Pickup>();
         }
 
-        public static void Toggle()
+        public static void Toggle(bool tempOn = false)
         {
             if (stored == null) Store();
 
             foreach (var gameObject in stored)
             {
-                gameObject.GetComponent<VRC_Pickup>().pickupable = CustomConfig.Get().VRC_Pickup;
-                gameObject.gameObject.SetActive(CustomConfig.Get().VRC_Pickup_Objects);
+                if (tempOn)
+                {
+                    gameObject.GetComponent<VRC_Pickup>().pickupable = true;
+                    gameObject.gameObject.SetActive(true);
+                }
+                else
+                {
+                    gameObject.GetComponent<VRC_Pickup>().pickupable = CustomConfig.Get().VRC_Pickup;
+                    gameObject.gameObject.SetActive(CustomConfig.Get().VRC_Pickup_Objects);
+                }
             }
         }
     }

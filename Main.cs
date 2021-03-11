@@ -12,7 +12,7 @@ namespace ComponentToggle
         public const string Name = "ComponentToggle"; // Name of the Mod.  (MUST BE SET)
         public const string Author = "Korty (Lily)"; // Author of the Mod.  (Set as null if none)
         public const string Company = null; // Company that made the Mod.  (Set as null if none)
-        public const string Version = "1.1.0"; // Version of the Mod.  (MUST BE SET)
+        public const string Version = "1.2.0"; // Version of the Mod.  (MUST BE SET)
         public const string DownloadLink = "https://github.com/KortyBoi/ComponentToggle"; // Download Link for the Mod.  (Set as null if none)
         public const string Description = "Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, and Pens, Chairs, Mirrors, Post Processing)";
     }
@@ -36,6 +36,7 @@ namespace ComponentToggle
         {
             CustomConfig.CheckExistence();
             Menu.Init();
+            Utilities.GetBlockedWorlds.Init();
         }
 
         public override void OnSceneWasLoaded(int buildIndex, string sceneName)
@@ -51,12 +52,18 @@ namespace ComponentToggle
                 Components.VRCMirrorReflect.OnLevelLoad();
                 Components.PostProcessing.OnLevelLoad();
                 MelonCoroutines.Start(Menu.OnLevelLoad());
+
+                Menu.setAllButtonToggleStates(false);
             }
+            MelonCoroutines.Start(Utilities.GetBlockedWorlds.DelayedLoad());
         }
 
-        public override void OnPreferencesSaved() 
+        public override void OnUpdate()
         {
-            if (isDebug)
+            if (!isDebug)
+                return;
+
+            if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKey(KeyCode.DownArrow))
             {
                 MelonLogger.Msg("[Debug] \n" +
                     " ================= Preferences Values: ============== \n" +
@@ -69,14 +76,6 @@ namespace ComponentToggle
                     " ============== bool PostProcessing        = " + CustomConfig.Get().PostProcessing.ToString() + "\n" +
                     " ====================================================");
             }
-            // Sets Toggle States on Pref Save
-            Menu.TogglePickup.setToggleState(CustomConfig.Get().VRC_Pickup);
-            Menu.TogglePickupObject.setToggleState(CustomConfig.Get().VRC_Pickup_Objects);
-            Menu.ToggleVideoPlayers.setToggleState(CustomConfig.Get().VRC_SyncVideoPlayer);
-            Menu.TogglePens.setToggleState(CustomConfig.Get().Pens);
-            Menu.ToggleStation.setToggleState(CustomConfig.Get().VRC_Station);
-            Menu.ToggleMirror.setToggleState(CustomConfig.Get().VRC_MirrorReflect);
-            Menu.TogglePostProcessing.setToggleState(CustomConfig.Get().PostProcessing);
         }
     }
 }

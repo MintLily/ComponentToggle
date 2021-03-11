@@ -29,19 +29,6 @@ namespace ComponentToggle.Utilities.Config
         public static void Save()
         {
             File.WriteAllText(final, JsonConvert.SerializeObject(_Config, Formatting.Indented));
-            if (Main.isDebug)
-            {
-                MelonLogger.Msg("[Debug] \n" +
-                    " ================= Preferences Values: ============== \n" +
-                    " ============== bool VRC_Pickup            = " + CustomConfig.Get().VRC_Pickup.ToString() + "\n" +
-                    " ============== bool VRC_Pickup_Objects    = " + CustomConfig.Get().VRC_Pickup_Objects.ToString() + "\n" +
-                    " ============== bool VRC_SyncVideoPlayer   = " + CustomConfig.Get().VRC_SyncVideoPlayer.ToString() + "\n" +
-                    " ============== bool Pens                  = " + CustomConfig.Get().Pens.ToString() + "\n" +
-                    " ============== bool VRC_Station           = " + CustomConfig.Get().VRC_Station.ToString() + "\n" +
-                    " ============== bool VRC_MirrorReflect     = " + CustomConfig.Get().VRC_MirrorReflect.ToString() + "\n" +
-                    " ============== bool PostProcessing        = " + CustomConfig.Get().PostProcessing.ToString() + "\n" +
-                    " ====================================================");
-            }
         }
 
         public static void CheckExistence()

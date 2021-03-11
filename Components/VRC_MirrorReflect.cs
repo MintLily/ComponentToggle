@@ -28,18 +28,24 @@ namespace ComponentToggle.Components
             stored_sdk3 = UnityEngine.Object.FindObjectsOfType<MirrorReflection>();
         }
 
-        public static void Toggle()
+        public static void Toggle(bool tempOn = false)
         {
             if (stored_sdk2 == null || stored_sdk3 != null) Store();
 
             foreach (var gameObject in stored_sdk2)
             {
-                gameObject.GetComponent<VRCSDK2.VRC_MirrorReflection>().enabled = CustomConfig.Get().VRC_MirrorReflect;
+                if (tempOn)
+                    gameObject.GetComponent<VRCSDK2.VRC_MirrorReflection>().enabled = true;
+                else
+                    gameObject.GetComponent<VRCSDK2.VRC_MirrorReflection>().enabled = CustomConfig.Get().VRC_MirrorReflect;
             }
 
             foreach (var gameObject in stored_sdk3)
             {
-                gameObject.GetComponent<MirrorReflection>().enabled = CustomConfig.Get().VRC_MirrorReflect;
+                if (tempOn)
+                    gameObject.GetComponent<MirrorReflection>().enabled = true;
+                else
+                    gameObject.GetComponent<MirrorReflection>().enabled = CustomConfig.Get().VRC_MirrorReflect;
             }
         }
     }
