@@ -63,7 +63,7 @@ namespace ComponentToggle
             if (!isDebug)
                 return;
 
-            if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKey(KeyCode.DownArrow))
+            if (Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.DownArrow))
             {
                 MelonLogger.Msg("[Debug] \n" +
                     " ================= Preferences Values: ============== \n" +
