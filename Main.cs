@@ -37,6 +37,7 @@ namespace ComponentToggle
             CustomConfig.CheckExistence();
             Menu.Init();
             Utilities.GetBlockedWorlds.Init();
+            Pens.Init();
         }
 
         public override void OnSceneWasLoaded(int buildIndex, string sceneName)
