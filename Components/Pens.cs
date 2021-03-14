@@ -70,15 +70,22 @@ namespace ComponentToggle.Components
 
         private static void DownloadFile()
         {
-            if (WebAddedItems.Any())
+            try
             {
-                WebClient client = new WebClient();
-                client.DownloadStringCompleted += client_DownloadFileCompleted;
-                //client.DownloadProgressChanged += client_DownloadProgressChanged;
+                if (WebAddedItems.Any())
+                {
+                    WebClient client = new WebClient();
+                    client.DownloadStringCompleted += client_DownloadFileCompleted;
+                    //client.DownloadProgressChanged += client_DownloadProgressChanged;
 
-                var nextItem = WebAddedItems.Dequeue();
-                client.DownloadStringAsync(new Uri(nextItem));
-                return;
+                    var nextItem = WebAddedItems.Dequeue();
+                    client.DownloadStringAsync(new Uri(nextItem));
+                    return;
+                }
+            }
+            catch (Exception e)
+            {
+                MelonLogger.Error("Error in downloading strings of GameObjects: File may not exist\n" + e.ToString());
             }
 
             // End of the download
@@ -125,15 +132,19 @@ namespace ComponentToggle.Components
             GenericEraser_2 = GameObject.Find("Erasers");
             GenericEraser_3 = GameObject.Find("Deleter");
 
-            WebAdded_1 = GameObject.Find(WebAddedResults[0]);
-            WebAdded_2 = GameObject.Find(WebAddedResults[1]);
-            WebAdded_3 = GameObject.Find(WebAddedResults[2]);
-            WebAdded_4 = GameObject.Find(WebAddedResults[3]);
-            WebAdded_5 = GameObject.Find(WebAddedResults[4]);
-            WebAdded_6 = GameObject.Find(WebAddedResults[5]);
-            WebAdded_7 = GameObject.Find(WebAddedResults[6]);
-            WebAdded_8 = GameObject.Find(WebAddedResults[7]);
-            WebAdded_9 = GameObject.Find(WebAddedResults[8]);
+            try
+            {
+                WebAdded_1 = GameObject.Find(WebAddedResults[0]);
+                WebAdded_2 = GameObject.Find(WebAddedResults[1]);
+                WebAdded_3 = GameObject.Find(WebAddedResults[2]);
+                WebAdded_4 = GameObject.Find(WebAddedResults[3]);
+                WebAdded_5 = GameObject.Find(WebAddedResults[4]);
+                WebAdded_6 = GameObject.Find(WebAddedResults[5]);
+                WebAdded_7 = GameObject.Find(WebAddedResults[6]);
+                WebAdded_8 = GameObject.Find(WebAddedResults[7]);
+                WebAdded_9 = GameObject.Find(WebAddedResults[8]);
+            }
+            catch { MelonLogger.Error("Could not assign objects from downloaded list"); }
 
             penArray.Add(QVPens);
             penArray.Add(QVEraser);
@@ -147,15 +158,19 @@ namespace ComponentToggle.Components
             penArray.Add(GenericEraser_2);
             penArray.Add(GenericEraser_3);
 
-            penArray.Add(WebAdded_1);
-            penArray.Add(WebAdded_2);
-            penArray.Add(WebAdded_3);
-            penArray.Add(WebAdded_4);
-            penArray.Add(WebAdded_5);
-            penArray.Add(WebAdded_6);
-            penArray.Add(WebAdded_7);
-            penArray.Add(WebAdded_8);
-            penArray.Add(WebAdded_9);
+            try
+            {
+                penArray.Add(WebAdded_1);
+                penArray.Add(WebAdded_2);
+                penArray.Add(WebAdded_3);
+                penArray.Add(WebAdded_4);
+                penArray.Add(WebAdded_5);
+                penArray.Add(WebAdded_6);
+                penArray.Add(WebAdded_7);
+                penArray.Add(WebAdded_8);
+                penArray.Add(WebAdded_9);
+            }
+            catch { MelonLogger.Error("Could not add objects to array"); }
         }
 
         public static void Toggle(bool tempOn = false)
