@@ -35,6 +35,8 @@ PostProcessing - Show PostProcessing<br>
 ![Preview 2](https://kortyboi.com/img/upload/VRChat_sojfrXy4Gy.png)<br>
 
 # Change Log
+### v1.2.1
+* Added WebHosted GameObject List - will this allow me to add a game object of a pen that isn't baked in the code of the mod
 ### v1.2.0
 * Added a Blocked World List - joining certain worlds will disable some actions<br>
 -- i.e. If you join Murder 4, VRC_Pickup toggle buttons cannot be toggled, and pickups are forced to be shown and interactable
