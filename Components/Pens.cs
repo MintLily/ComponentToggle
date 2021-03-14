@@ -41,6 +41,7 @@ namespace ComponentToggle.Components
 
         private static Queue<string> WebAddedItems = new Queue<string>();
         private static List<string> WebAddedResults = new List<string>();
+        public static int WebAddedResultCount;
 
         private static string WebBaseURL(string number)
         {
@@ -82,7 +83,7 @@ namespace ComponentToggle.Components
 
             // End of the download
             MelonLogger.Msg("Download Complete");
-            
+            WebAddedResultCount = WebAddedResults.Count;
         }
 
         private static void client_DownloadFileCompleted(object sender, DownloadStringCompletedEventArgs e)

@@ -75,6 +75,7 @@ namespace ComponentToggle
                     " ============== bool VRC_Station           = " + CustomConfig.Get().VRC_Station.ToString() + "\n" +
                     " ============== bool VRC_MirrorReflect     = " + CustomConfig.Get().VRC_MirrorReflect.ToString() + "\n" +
                     " ============== bool PostProcessing        = " + CustomConfig.Get().PostProcessing.ToString() + "\n" +
+                    " ============== WebAdded List Count        = " + Pens.WebAddedResultCount.ToString() + "\n" +
                     " ====================================================");
             }
         }
