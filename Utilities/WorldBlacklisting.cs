@@ -22,9 +22,8 @@ namespace ComponentToggle.Utilities
     public static class GetBlockedWorlds
     {
         private static string ParsedWorldList;
-        private static HttpClient client = new HttpClient();
 
-        public static GetWorlds[] Worlds { get; set; }
+        public static GetWorlds[] Worlds { get; internal set; }
 
         public static void Init()
         {
@@ -36,8 +35,6 @@ namespace ComponentToggle.Utilities
             string url = "https://raw.githubusercontent.com/KortyBoi/ComponentToggle/master/Utilities/Blacklists/Worlds.json";
             WebClient WorldList = new WebClient();
             ParsedWorldList = WorldList.DownloadString(url);
-            //try { ParsedWorldList = client.GetStringAsync(url).GetAwaiter().GetResult(); }
-            //catch { MelonLogger.Error("Failed to get Blacklisted World List from GitHub"); }
 
             yield return new WaitForSeconds(0.5f);
 
