@@ -5,16 +5,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MelonLoader;
-using RubyButtonAPI;
+using RubyButtonAPICT;
 using UnityEngine;
 using ComponentToggle.Components;
 using ComponentToggle.Utilities.Config;
 
 namespace ComponentToggle
 {
-    class Menu
+    public class Menu
     {
-        private static QMNestedButton menu;
+        public static QMNestedButton menu;
         private static QMToggleButton TogglePickup;
         private static QMToggleButton TogglePickupObject;
         private static QMToggleButton ToggleVideoPlayers;
