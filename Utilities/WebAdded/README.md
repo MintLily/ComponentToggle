@@ -1,1 +1,0 @@
-Temporary names are stored as Base64 Text. If a text file has a name, it will the name of a GameObject that is located in a world.

@@ -9,6 +9,8 @@ using System.Collections;
 using System.Net;
 using MelonLoader;
 using System.ComponentModel;
+using ComponentToggle.Utilities;
+using Harmony;
 
 namespace ComponentToggle.Components
 {
@@ -29,90 +31,22 @@ namespace ComponentToggle.Components
         private static GameObject GenericEraser_2;
         private static GameObject GenericEraser_3;
 
-        private static GameObject WebAdded_1;
-        private static GameObject WebAdded_2;
-        private static GameObject WebAdded_3;
-        private static GameObject WebAdded_4;
-        private static GameObject WebAdded_5;
-        private static GameObject WebAdded_6;
-        private static GameObject WebAdded_7;
-        private static GameObject WebAdded_8;
-        private static GameObject WebAdded_9;
-
-        private static Queue<string> WebAddedItems = new Queue<string>();
-        private static List<string> WebAddedResults = new List<string>();
-        public static int WebAddedResultCount;
-
-        private static string WebBaseURL(string number)
-        {
-            return $"https://raw.githubusercontent.com/KortyBoi/ComponentToggle/master/Utilities/WebAdded/GameObjectName_{number}.txt";
-        }
-
-        private static string[] WebAdded = { WebBaseURL("1"), WebBaseURL("2"), WebBaseURL("3"), WebBaseURL("4"), WebBaseURL("5"), WebBaseURL("6"), WebBaseURL("7"), WebBaseURL("8"), WebBaseURL("9") };
-
+        private static string url = "https://raw.githubusercontent.com/KortyBoi/ComponentToggle/master/Utilities/WebAdded/GameObjects.txt";
+        private static string listOfExtraGameObjects = string.Empty;
+        public static string[] splitListOfObjects;
+        
         public static void Init()
         {
-            downloadFiles(WebAdded);
-        }
-
-        private static void downloadFiles(IEnumerable<string> urls)
-        {
-            foreach (var url in urls)
-            {
-                WebAddedItems.Enqueue(url);
-            }
-
-            // Starts the download
             MelonLogger.Msg("Downloading Extra GameObject list...");
-
-            DownloadFile();
-        }
-
-        private static void DownloadFile()
-        {
-            try
-            {
-                if (WebAddedItems.Any())
-                {
-                    WebClient client = new WebClient();
-                    client.DownloadStringCompleted += client_DownloadFileCompleted;
-                    //client.DownloadProgressChanged += client_DownloadProgressChanged;
-
-                    var nextItem = WebAddedItems.Dequeue();
-                    client.DownloadStringAsync(new Uri(nextItem));
-                    return;
-                }
-            }
-            catch (Exception e)
-            {
-                MelonLogger.Error("Error in downloading strings of GameObjects: File may not exist\n" + e.ToString());
-            }
-
-            // End of the download
+            WebClient WebAdded = new WebClient();
+            listOfExtraGameObjects = WebAdded.DownloadString(url);
             MelonLogger.Msg("Download Complete");
-            WebAddedResultCount = WebAddedResults.Count;
-        }
 
-        private static void client_DownloadFileCompleted(object sender, DownloadStringCompletedEventArgs e)
-        {
-            if (e != null)
-                WebAddedResults.Add(e.Result);
-            else if (e.Error != null)
-                MelonLogger.Error("object is null\n" + e.ToString());
-            if (e.Cancelled)
-                MelonLogger.Warning("Operation was cancelled.");
-            DownloadFile();
-        }
+            char[] delims = new[] { '\r', '\n' };
+            splitListOfObjects = listOfExtraGameObjects.Split(delims, StringSplitOptions.RemoveEmptyEntries);
 
-        /*
-        private static void client_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
-        {
-            double bytesIn = double.Parse(e.BytesReceived.ToString());
-            double totalBytes = double.Parse(e.TotalBytesToReceive.ToString());
-            double percentage = bytesIn / totalBytes * 100;
-            progressBar1.Value = int.Parse(Math.Truncate(percentage).ToString());
+            MelonLogger.Msg("Found " + splitListOfObjects.Length.ToString() + " GameObjects in list");
         }
-        */
 
         public static void OnLevelLoad()
         {
@@ -132,20 +66,6 @@ namespace ComponentToggle.Components
             GenericEraser_2 = GameObject.Find("Erasers");
             GenericEraser_3 = GameObject.Find("Deleter");
 
-            try
-            {
-                WebAdded_1 = GameObject.Find(WebAddedResults[0]);
-                WebAdded_2 = GameObject.Find(WebAddedResults[1]);
-                WebAdded_3 = GameObject.Find(WebAddedResults[2]);
-                WebAdded_4 = GameObject.Find(WebAddedResults[3]);
-                WebAdded_5 = GameObject.Find(WebAddedResults[4]);
-                WebAdded_6 = GameObject.Find(WebAddedResults[5]);
-                WebAdded_7 = GameObject.Find(WebAddedResults[6]);
-                WebAdded_8 = GameObject.Find(WebAddedResults[7]);
-                WebAdded_9 = GameObject.Find(WebAddedResults[8]);
-            }
-            catch { MelonLogger.Error("Could not assign objects from downloaded list"); }
-
             penArray.Add(QVPens);
             penArray.Add(QVEraser);
             penArray.Add(MidnightRooftop_TopPens);
@@ -160,17 +80,12 @@ namespace ComponentToggle.Components
 
             try
             {
-                penArray.Add(WebAdded_1);
-                penArray.Add(WebAdded_2);
-                penArray.Add(WebAdded_3);
-                penArray.Add(WebAdded_4);
-                penArray.Add(WebAdded_5);
-                penArray.Add(WebAdded_6);
-                penArray.Add(WebAdded_7);
-                penArray.Add(WebAdded_8);
-                penArray.Add(WebAdded_9);
+                for (int i = 0; i <= splitListOfObjects.Length; i++)
+                {
+                    penArray.Add(GameObject.Find(splitListOfObjects[i]));
+                }
             }
-            catch { MelonLogger.Error("Could not add objects to array"); }
+            catch { MelonLogger.Error("Could not add spilt list to penArray"); }
         }
 
         public static void Toggle(bool tempOn = false)
@@ -199,5 +114,17 @@ namespace ComponentToggle.Components
                 }
             }
         }
+
+        // Unneeded - Credits go to Loukylor for this function
+        /*
+        public static List<GameObject> GetGameObjectsWithNameInChildren(GameObject gameObject, string name, List<GameObject> gameObjects = null)
+        {
+            if (gameObjects == null) gameObjects = new List<GameObject>();
+            if (gameObject.name == name) gameObjects.Add(gameObject);
+            foreach (var child in gameObject.transform)
+                return GetGameObjectsWithNameInChildren(child.Cast<Transform>().gameObject, name, gameObjects);
+            return gameObjects;
+        }
+        */
     }
 }

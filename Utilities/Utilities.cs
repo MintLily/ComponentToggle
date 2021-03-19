@@ -1,4 +1,6 @@
-﻿using VRC.Core;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using VRC.Core;
 
 namespace ComponentToggle.Utilities
 {

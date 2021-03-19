@@ -12,7 +12,7 @@ namespace ComponentToggle
         public const string Name = "ComponentToggle"; // Name of the Mod.  (MUST BE SET)
         public const string Author = "Korty (Lily)"; // Author of the Mod.  (Set as null if none)
         public const string Company = null; // Company that made the Mod.  (Set as null if none)
-        public const string Version = "1.2.1"; // Version of the Mod.  (MUST BE SET)
+        public const string Version = "1.2.2"; // Version of the Mod.  (MUST BE SET)
         public const string DownloadLink = "https://github.com/KortyBoi/ComponentToggle"; // Download Link for the Mod.  (Set as null if none)
         public const string Description = "Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, and Pens, Chairs, Mirrors, Post Processing)";
     }
@@ -23,7 +23,7 @@ namespace ComponentToggle
 
         public override void OnApplicationStart() // Runs after Game Initialization.
         {
-            if (Environment.CommandLine.Contains("--ct.debug"))
+            if (MelonDebug.IsEnabled())
             {
                 isDebug = true;
                 MelonLogger.Msg("Debug mode is active");
@@ -75,7 +75,7 @@ namespace ComponentToggle
                     " ============== bool VRC_Station           = " + CustomConfig.Get().VRC_Station.ToString() + "\n" +
                     " ============== bool VRC_MirrorReflect     = " + CustomConfig.Get().VRC_MirrorReflect.ToString() + "\n" +
                     " ============== bool PostProcessing        = " + CustomConfig.Get().PostProcessing.ToString() + "\n" +
-                    " ============== WebAdded List Count        = " + Pens.WebAddedResultCount.ToString() + "\n" +
+                    " ============== WebAdded List Count        = " + Pens.splitListOfObjects.Length.ToString() + "\n" +
                     " ====================================================");
             }
         }
