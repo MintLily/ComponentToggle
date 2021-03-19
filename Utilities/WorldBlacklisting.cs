@@ -69,6 +69,10 @@ namespace ComponentToggle.Utilities
                         if (Main.isDebug)
                             MelonLogger.Msg("Detected SDK3 World, VideoPlayer Toggle Blocked");
                     }
+                    else
+                    {
+                        Menu.BlockActions(99);
+                    }
                 }
             }
             catch { MelonLogger.Error("Failed to Apply Actions or Read from list of worlds"); }
