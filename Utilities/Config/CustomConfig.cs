@@ -18,6 +18,7 @@ namespace ComponentToggle.Utilities.Config
         public bool VRC_Station = true;
         public bool VRC_MirrorReflect = true;
         public bool PostProcessing = true;
+        public bool VRC_AvatarPedestal = true;
     }
 
     static class CustomConfig

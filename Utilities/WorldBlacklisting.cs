@@ -58,6 +58,7 @@ namespace ComponentToggle.Utilities
                         else if (Worlds.Any(x => x.buttonNumber.Equals(4))) Menu.BlockActions(4);
                         else if (Worlds.Any(x => x.buttonNumber.Equals(5))) Menu.BlockActions(5);
                         else if (Worlds.Any(x => x.buttonNumber.Equals(6))) Menu.BlockActions(6);
+                        else if (Worlds.Any(x => x.buttonNumber.Equals(7))) Menu.BlockActions(7);
                     }
                     else
                     {

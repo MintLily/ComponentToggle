@@ -22,6 +22,7 @@ namespace ComponentToggle
         private static QMToggleButton ToggleStation;
         private static QMToggleButton ToggleMirror;
         private static QMToggleButton TogglePostProcessing;
+        private static QMToggleButton TogglePedestal;
 
         public static void Init()
         {
@@ -110,6 +111,18 @@ namespace ComponentToggle
                 PostProcessing.Toggle();
             }, "TOGGLE: Post Processing");
 
+            TogglePedestal = new QMToggleButton(menu, 4, 1, "Avatar\nPedestals", () =>
+            {
+                CustomConfig.Get().VRC_AvatarPedestal = true;
+                CustomConfig.Save();
+                VRCAvatarPedestal.Revert();
+            }, "Disabled", () =>
+            {
+                CustomConfig.Get().VRC_AvatarPedestal = false;
+                CustomConfig.Save();
+                VRCAvatarPedestal.Disable();
+            }, "TOGGLE: Avatar Pedestals throughout the world");
+
             // Sets Toggle States on UI Init
             setAllButtonToggleStates(false);
         }
@@ -123,6 +136,7 @@ namespace ComponentToggle
             ToggleStation.setToggleState(CustomConfig.Get().VRC_Station, Invoke);
             ToggleMirror.setToggleState(CustomConfig.Get().VRC_MirrorReflect, Invoke);
             TogglePostProcessing.setToggleState(CustomConfig.Get().PostProcessing, Invoke);
+            TogglePedestal.setToggleState(CustomConfig.Get().VRC_AvatarPedestal , Invoke);
         }
 
         public static bool WorldWasChanged = false;
@@ -165,6 +179,9 @@ namespace ComponentToggle
                 case 6:
                     TogglePostProcessing.Disabled(true);
                     break;
+                case 7:
+                    TogglePedestal.Disabled(true);
+                    break;
                 default:
                     TogglePickup.Disabled(false);
                     TogglePickupObject.Disabled(false);
@@ -173,6 +190,7 @@ namespace ComponentToggle
                     ToggleStation.Disabled(false);
                     ToggleMirror.Disabled(false);
                     TogglePostProcessing.Disabled(false);
+                    TogglePedestal.Disabled(false);
                     break;
             }
         }

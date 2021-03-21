@@ -12,7 +12,7 @@ namespace ComponentToggle
         public const string Name = "ComponentToggle"; // Name of the Mod.  (MUST BE SET)
         public const string Author = "Korty (Lily)"; // Author of the Mod.  (Set as null if none)
         public const string Company = null; // Company that made the Mod.  (Set as null if none)
-        public const string Version = "1.2.2"; // Version of the Mod.  (MUST BE SET)
+        public const string Version = "1.3.0"; // Version of the Mod.  (MUST BE SET)
         public const string DownloadLink = "https://github.com/KortyBoi/ComponentToggle"; // Download Link for the Mod.  (Set as null if none)
         public const string Description = "Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, and Pens, Chairs, Mirrors, Post Processing)";
     }
@@ -53,6 +53,7 @@ namespace ComponentToggle
                 Components.VRCMirrorReflect.OnLevelLoad();
                 Components.PostProcessing.OnLevelLoad();
                 MelonCoroutines.Start(Menu.OnLevelLoad());
+                VRCAvatarPedestal.OnLevelLoad();
 
                 Menu.setAllButtonToggleStates(false);
             }
@@ -75,6 +76,7 @@ namespace ComponentToggle
                     " ============== bool VRC_Station           = " + CustomConfig.Get().VRC_Station.ToString() + "\n" +
                     " ============== bool VRC_MirrorReflect     = " + CustomConfig.Get().VRC_MirrorReflect.ToString() + "\n" +
                     " ============== bool PostProcessing        = " + CustomConfig.Get().PostProcessing.ToString() + "\n" +
+                    " ============== bool VRC_AvatarPedestal    = " + CustomConfig.Get().VRC_AvatarPedestal.ToString() + "\n" +
                     " ============== WebAdded List Count        = " + Pens.splitListOfObjects.Length.ToString() + "\n" +
                     " ====================================================");
             }

@@ -80,7 +80,7 @@ namespace ComponentToggle.Components
 
             try
             {
-                for (int i = 0; i <= splitListOfObjects.Length; i++)
+                for (int i = 0; i < splitListOfObjects.Length; i++)
                 {
                     penArray.Add(GameObject.Find(splitListOfObjects[i]));
                 }
