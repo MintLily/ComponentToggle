@@ -18,7 +18,8 @@ Game: VRChat (build 1061+)<br>
   "Pens": true,
   "VRC_Station": true,
   "VRC_MirrorReflect": true,
-  "PostProcessing": true
+  "PostProcessing": true,
+  "VRC_AvatarPedestal": true
 }
 ```
 <br>
@@ -29,12 +30,17 @@ Pens - Show Pens & Erasers<br>
 VRC_Station - Allow yourself to sit in chairs<br>
 VRC_MirrorReflect - Show Mirrors<br>
 PostProcessing - Show PostProcessing<br>
+VRC_AvatarPedestal - Show Avatar Pedestals<br>
 
 ### Preview
 ![Preview 1](https://kortyboi.com/img/upload/VRChat_ZmRFcJMvyb.jpg)<br>
 ![Preview 2](https://kortyboi.com/img/upload/VRChat_sojfrXy4Gy.png)<br>
 
 # Change Log
+### v1.3.0
+* Added Avatar Pedestal Toggle
+* Fixed errors caused by adding GameObjects gathered from the Web
+
 ### v1.2.2
 * Changed how to get WebAdded GameObject List (no longer 9 files, now one file)
 * Fixed where VideoPlayer Toggle button would not re-enable on world change (into an SDK2 world)
