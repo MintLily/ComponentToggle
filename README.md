@@ -7,7 +7,7 @@ Click [this link](https://melonwiki.xyz/) to get started!
 
 ### Prerequisites
 MelonLoader: v0.3.0+ (Alpha)<br>
-Game: VRChat (build 1061+)<br>
+Game: VRChat (build 1067+)<br>
 
 ### /UserData/ComponentToggleConfig.json (Default Values)
 ```
@@ -37,6 +37,10 @@ VRC_AvatarPedestal - Show Avatar Pedestals<br>
 ![Preview 2](https://kortyboi.com/img/upload/VRChat_sojfrXy4Gy.png)<br>
 
 # Change Log
+### v1.3.1
+* Recompile for VRChat build 1067<br>
+(fixed Overlapping button when opening the menu)
+
 ### v1.3.0
 * Added Avatar Pedestal Toggle
 * Fixed errors caused by adding GameObjects gathered from the Web
