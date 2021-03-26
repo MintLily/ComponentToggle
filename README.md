@@ -65,3 +65,8 @@ VRC_AvatarPedestal - Show Avatar Pedestals<br>
 
 # Credits
 DubyaDude, Emilia, Tritn - [RubyButtonAPI](https://github.com/DubyaDude/RubyButtonAPI)
+
+
+
+## Stay Updated
+Stay update to date with all my mods by joining my [discord server](https://discord.gg/qkycuAMUGS) today.
