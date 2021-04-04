@@ -38,8 +38,8 @@ namespace ComponentToggle.Components
                 }
                 else
                 {
-                    gameObject.GetComponent<VRC_Pickup>().pickupable = CustomConfig.Get().VRC_Pickup;
-                    gameObject.gameObject.SetActive(CustomConfig.Get().VRC_Pickup_Objects);
+                    gameObject.GetComponent<VRC_Pickup>().pickupable = Main.VRC_Pickup.Value;
+                    gameObject.gameObject.SetActive(Main.VRC_Pickup_Objects.Value);
                 }
             }
         }

@@ -44,8 +44,8 @@ namespace ComponentToggle.Components
                 }
                 else
                 {
-                    gameObject.GetComponent<VRC_SyncVideoPlayer>().enabled = CustomConfig.Get().VRC_SyncVideoPlayer;
-                    gameObject.gameObject.SetActive(CustomConfig.Get().VRC_SyncVideoPlayer);
+                    gameObject.GetComponent<VRC_SyncVideoPlayer>().enabled = Main.VRC_SyncVideoPlayer.Value;
+                    gameObject.gameObject.SetActive(Main.VRC_SyncVideoPlayer.Value);
                 }
             }
         }

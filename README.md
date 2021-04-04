@@ -1,5 +1,5 @@
 # ComponentToggle
-Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, and Pens, Chairs, Mirrors, Post Processing)
+Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, Pens, Chairs, Mirrors, Post Processing, and Avatar Pedestals)
 
 ### MelonLoader
 Need to install MelonLoader?<br>
@@ -7,39 +7,39 @@ Click [this link](https://melonwiki.xyz/) to get started!
 
 ### Prerequisites
 MelonLoader: v0.3.0+ (Alpha)<br>
-Game: VRChat (build 1067+)<br>
+Game: VRChat (build 1069+)<br>
 
-### /UserData/ComponentToggleConfig.json (Default Values)
-```
-{
-  "VRC_Pickup": false,
-  "VRC_Pickup_Objects": true,
-  "VRC_SyncVideoPlayer": true,
-  "Pens": true,
-  "VRC_Station": true,
-  "VRC_MirrorReflect": true,
-  "PostProcessing": true,
-  "VRC_AvatarPedestal": true
-}
+### MelonPreferences.cfg (Default Values)
+```ini
+[ComponentToggle]
+EnablePickup = true
+ShowPickupObjects = true
+ShowVideoPlayers = true
+ShowPens = true
+EnableChairs = true
+ShowMirrors = true
+EnablePostProcessing = true
+ShowAvatarsPedestals = true
 ```
 <br>
-VRC_Pickup - Allow Pickups<br>
-VRC_Pickup_Objects - Show Pickups<br>
-VRC_SyncVideoPlayer - Show Video Players<br>
-Pens - Show Pens & Erasers<br>
-VRC_Station - Allow yourself to sit in chairs<br>
-VRC_MirrorReflect - Show Mirrors<br>
-PostProcessing - Show PostProcessing<br>
-VRC_AvatarPedestal - Show Avatar Pedestals<br>
+EnablePickup - Allow Pickups<br>
+ShowPickupObjects - Show Pickups<br>
+ShowVideoPlayers - Show Video Players<br>
+ShowPens - Show Pens & Erasers<br>
+EnableChairs - Allow yourself to sit in chairs<br>
+ShowMirrors - Show Mirrors<br>
+EnablePostProcessing - Show PostProcessing<br>
+ShowAvatarsPedestals - Show Avatar Pedestals<br>
 
 ### Preview
-![Preview 1](https://kortyboi.com/img/upload/VRChat_ZmRFcJMvyb.jpg)<br>
-![Preview 2](https://kortyboi.com/img/upload/VRChat_sojfrXy4Gy.png)<br>
+![Preview 1 - Menu Location](https://kortyboi.com/img/upload/VRChat_ZmRFcJMvyb.jpg)<br>
+![Preview 2 - Menu Content](https://kortyboi.com/img/upload/VRChat_sojfrXy4Gy.png)<br>
 
 # Change Log
-### v1.3.1
-* Recompile for VRChat build 1067<br>
-(fixed Overlapping button when opening the menu)
+### v1.4.0
+* Removed Custom Config because corruptions are horrible
+* * Made config system go through MelonPrefs for ease
+* Removed WebAdded GameObject List
 
 ### v1.3.0
 * Added Avatar Pedestal Toggle

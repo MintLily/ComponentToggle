@@ -31,23 +31,6 @@ namespace ComponentToggle.Components
         private static GameObject GenericEraser_2;
         private static GameObject GenericEraser_3;
 
-        private static string url = "https://raw.githubusercontent.com/KortyBoi/ComponentToggle/master/Utilities/WebAdded/GameObjects.txt";
-        private static string listOfExtraGameObjects = string.Empty;
-        public static string[] splitListOfObjects;
-        
-        public static void Init()
-        {
-            MelonLogger.Msg("Downloading Extra GameObject list...");
-            WebClient WebAdded = new WebClient();
-            listOfExtraGameObjects = WebAdded.DownloadString(url);
-            MelonLogger.Msg("Download Complete");
-
-            char[] delims = new[] { '\r', '\n' };
-            splitListOfObjects = listOfExtraGameObjects.Split(delims, StringSplitOptions.RemoveEmptyEntries);
-
-            MelonLogger.Msg("Found " + splitListOfObjects.Length.ToString() + " GameObjects in list");
-        }
-
         public static void OnLevelLoad()
         {
             Markers = UnityEngine.Object.FindObjectsOfType<VRC.SDK.Internal.Whiteboard.Marker>();
@@ -77,15 +60,6 @@ namespace ComponentToggle.Components
             penArray.Add(GenericEraser_1);
             penArray.Add(GenericEraser_2);
             penArray.Add(GenericEraser_3);
-
-            try
-            {
-                for (int i = 0; i < splitListOfObjects.Length; i++)
-                {
-                    penArray.Add(GameObject.Find(splitListOfObjects[i]));
-                }
-            }
-            catch { MelonLogger.Error("Could not add spilt list to penArray"); }
         }
 
         public static void Toggle(bool tempOn = false)
@@ -97,7 +71,7 @@ namespace ComponentToggle.Components
                 if (tempOn)
                     gameObject.gameObject.SetActive(true);
                 else
-                    gameObject.gameObject.SetActive(CustomConfig.Get().Pens);
+                    gameObject.gameObject.SetActive(Main.Pens.Value);
             }
 
             foreach (var gameObject in Markers)
@@ -109,22 +83,10 @@ namespace ComponentToggle.Components
                 }
                 else
                 {
-                    gameObject.GetComponent<VRC.SDK.Internal.Whiteboard.Marker>().enabled = CustomConfig.Get().Pens;
-                    gameObject.gameObject.SetActive(CustomConfig.Get().Pens);
+                    gameObject.GetComponent<VRC.SDK.Internal.Whiteboard.Marker>().enabled = Main.Pens.Value;
+                    gameObject.gameObject.SetActive(Main.Pens.Value);
                 }
             }
         }
-
-        // Unneeded - Credits go to Loukylor for this function
-        /*
-        public static List<GameObject> GetGameObjectsWithNameInChildren(GameObject gameObject, string name, List<GameObject> gameObjects = null)
-        {
-            if (gameObjects == null) gameObjects = new List<GameObject>();
-            if (gameObject.name == name) gameObjects.Add(gameObject);
-            foreach (var child in gameObject.transform)
-                return GetGameObjectsWithNameInChildren(child.Cast<Transform>().gameObject, name, gameObjects);
-            return gameObjects;
-        }
-        */
     }
 }

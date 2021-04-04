@@ -37,7 +37,7 @@ namespace ComponentToggle.Components
                 if (tempOn)
                     gameObject.GetComponent<VRCSDK2.VRC_MirrorReflection>().enabled = true;
                 else
-                    gameObject.GetComponent<VRCSDK2.VRC_MirrorReflection>().enabled = CustomConfig.Get().VRC_MirrorReflect;
+                    gameObject.GetComponent<VRCSDK2.VRC_MirrorReflection>().enabled = Main.VRC_MirrorReflect.Value;
             }
 
             foreach (var gameObject in stored_sdk3)
@@ -45,7 +45,7 @@ namespace ComponentToggle.Components
                 if (tempOn)
                     gameObject.GetComponent<MirrorReflection>().enabled = true;
                 else
-                    gameObject.GetComponent<MirrorReflection>().enabled = CustomConfig.Get().VRC_MirrorReflect;
+                    gameObject.GetComponent<MirrorReflection>().enabled = Main.VRC_MirrorReflect.Value;
             }
         }
     }

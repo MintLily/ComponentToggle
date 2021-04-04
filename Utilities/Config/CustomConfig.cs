@@ -11,36 +11,56 @@ namespace ComponentToggle.Utilities.Config
 {
     class Config
     {
-        public bool VRC_Pickup = true;
-        public bool VRC_Pickup_Objects = true;
-        public bool VRC_SyncVideoPlayer = true;
-        public bool Pens = true;
-        public bool VRC_Station = true;
-        public bool VRC_MirrorReflect = true;
-        public bool PostProcessing = true;
-        public bool VRC_AvatarPedestal = true;
+        public bool VRC_Pickup { get; }
+        public bool VRC_Pickup_Objects { get; }
+        public bool VRC_SyncVideoPlayer { get; }
+        public bool Pens { get; }
+        public bool VRC_Station { get; }
+        public bool VRC_MirrorReflect { get; }
+        public bool PostProcessing { get; }
+        public bool VRC_AvatarPedestal { get; }
     }
 
     static class CustomConfig
     {
-        private static readonly string final = Path.Combine(Environment.CurrentDirectory, "UserData/ComponentToggleConfig.json");
+        public static readonly string final = Path.Combine(Environment.CurrentDirectory, "UserData/ComponentToggleConfig.json");
 
         private static Config _Config { get; set; }
-
-        public static void Save()
-        {
-            File.WriteAllText(final, JsonConvert.SerializeObject(_Config, Formatting.Indented));
-        }
-
-        public static void CheckExistence()
-        {
-            if (!File.Exists(final))
-                File.WriteAllText(final, JsonConvert.SerializeObject(new Config(), Formatting.Indented));
-            Load();
-        }
 
         public static void Load() { _Config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(final)); }
 
         public static Config Get() { return _Config; }
+
+        public static void ConvertAndRemove()
+        {
+            try
+            {
+                bool faulted = true;
+                try
+                {
+                    Main.VRC_Pickup.Value = Get().VRC_Pickup;
+                    Main.VRC_Pickup_Objects.Value = Get().VRC_Pickup_Objects;
+                    Main.VRC_SyncVideoPlayer.Value = Get().VRC_SyncVideoPlayer;
+                    Main.Pens.Value = Get().Pens;
+                    Main.VRC_Station.Value = Get().VRC_Station;
+                    Main.VRC_MirrorReflect.Value = Get().VRC_MirrorReflect;
+                    Main.PostProcessing.Value = Get().PostProcessing;
+                    Main.VRC_AvatarPedestal.Value = Get().VRC_AvatarPedestal;
+                    faulted = false;
+                }
+                catch { faulted = true; }
+
+                if (!faulted)
+                {
+                    File.Delete(final);
+                    Menu.setAllButtonToggleStates(false); // Set States After Conversion
+                }
+            }
+            catch 
+            {
+                if (!File.Exists(final) && Main.isDebug)
+                    MelonLogger.Msg("Not an error > Old Config file does not exist, ignoring function.");
+            }
+        }
     }
 }

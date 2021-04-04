@@ -21,7 +21,7 @@ namespace ComponentToggle.Utilities
 
         private static bool CanUseStation(ref bool __result, VRC.Player __0, bool __1)
         {
-            if (__0 != null && __0 == VRCPlayer.field_Internal_Static_VRCPlayer_0.field_Private_Player_0 && !CustomConfig.Get().VRC_Station)
+            if (__0 != null && __0 == VRCPlayer.field_Internal_Static_VRCPlayer_0.field_Private_Player_0 && !Main.VRC_Station.Value)
             {
                 __result = false;
                 return false;

@@ -11,6 +11,7 @@ using ComponentToggle.Utilities.Config;
 
 namespace ComponentToggle.Components
 {
+    // came from and credits to https://github.com/Arion-Kun/PostProcessing (from an old version)
     class PostProcessing
     {
         public static bool WorldWasChanged;
@@ -26,11 +27,11 @@ namespace ComponentToggle.Components
             {
                 if (cam.GetComponent<PostProcessLayer>() != null)
                 {
-                    if (CustomConfig.Get().PostProcessing != cam.GetComponent<PostProcessLayer>().enabled)
+                    if (Main.PostProcessing.Value != cam.GetComponent<PostProcessLayer>().enabled)
                     {
                         if (Main.isDebug)
-                            MelonLogger.Msg(CustomConfig.Get().PostProcessing ? "Removed Post Processing" : "Re-added Post Processing");
-                        cam.GetComponent<PostProcessLayer>().enabled = CustomConfig.Get().PostProcessing;
+                            MelonLogger.Msg(Main.PostProcessing.Value ? "Removed Post Processing" : "Re-added Post Processing");
+                        cam.GetComponent<PostProcessLayer>().enabled = Main.PostProcessing.Value;
                     }
                 }
             }
@@ -46,11 +47,11 @@ namespace ComponentToggle.Components
                 {
                     if (cam.GetComponent<PostProcessLayer>() != null)
                     {
-                        if (CustomConfig.Get().PostProcessing != cam.GetComponent<PostProcessLayer>().enabled)
+                        if (Main.PostProcessing.Value != cam.GetComponent<PostProcessLayer>().enabled)
                         {
                             if (Main.isDebug)
-                                MelonLogger.Msg(CustomConfig.Get().PostProcessing ? "Auto Removed Post Processing" : "Auto Re-added Post Processing");
-                            cam.GetComponent<PostProcessLayer>().enabled = CustomConfig.Get().PostProcessing;
+                                MelonLogger.Msg(Main.PostProcessing.Value ? "Auto Removed Post Processing" : "Auto Re-added Post Processing");
+                            cam.GetComponent<PostProcessLayer>().enabled = Main.PostProcessing.Value;
                         }
                     }
                 }
