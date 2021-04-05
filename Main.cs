@@ -13,7 +13,7 @@ namespace ComponentToggle
         public const string Name = "ComponentToggle"; // Name of the Mod.  (MUST BE SET)
         public const string Author = "Korty (Lily)"; // Author of the Mod.  (Set as null if none)
         public const string Company = null; // Company that made the Mod.  (Set as null if none)
-        public const string Version = "1.4.0"; // Version of the Mod.  (MUST BE SET)
+        public const string Version = "1.4.1"; // Version of the Mod.  (MUST BE SET)
         public const string DownloadLink = "https://github.com/KortyBoi/ComponentToggle"; // Download Link for the Mod.  (Set as null if none)
         public const string Description = "Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, Pens, Chairs, Mirrors, Post Processing, and Avatar Pedestals)";
     }
@@ -108,7 +108,7 @@ namespace ComponentToggle
                     " ====================================================");
             }
 
-            Menu.setAllButtonToggleStates(false);
+            Menu.setAllButtonToggleStates(true); // When saved, button toggle states are set, (the bool) the actions of the buttons are invoked
         }
     }
 }
