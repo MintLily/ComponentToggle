@@ -1,7 +1,5 @@
 using MelonLoader;
-using UnityEngine;
 using System;
-using UnityEngine.XR;
 using ComponentToggle.Components;
 using ComponentToggle.Utilities.Config;
 using System.IO;
@@ -13,7 +11,7 @@ namespace ComponentToggle
         public const string Name = "ComponentToggle"; // Name of the Mod.  (MUST BE SET)
         public const string Author = "Korty (Lily)"; // Author of the Mod.  (Set as null if none)
         public const string Company = null; // Company that made the Mod.  (Set as null if none)
-        public const string Version = "1.4.1"; // Version of the Mod.  (MUST BE SET)
+        public const string Version = "1.5.0"; // Version of the Mod.  (MUST BE SET)
         public const string DownloadLink = "https://github.com/KortyBoi/ComponentToggle"; // Download Link for the Mod.  (Set as null if none)
         public const string Description = "Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, Pens, Chairs, Mirrors, Post Processing, and Avatar Pedestals)";
     }
@@ -64,6 +62,7 @@ namespace ComponentToggle
             CustomConfig.ConvertAndRemove();
             Menu.Init();
             Utilities.GetBlockedWorlds.Init();
+            MelonCoroutines.Start(Utilities.Menu.AllowToolTipTextColor());
         }
 
         public override void OnSceneWasLoaded(int buildIndex, string sceneName)
@@ -84,7 +83,6 @@ namespace ComponentToggle
                     Components.PostProcessing.OnLevelLoad();
                     MelonCoroutines.Start(Menu.OnLevelLoad());
                     VRCAvatarPedestal.OnLevelLoad();
-
                     Menu.setAllButtonToggleStates(false);
                     break;
             }
