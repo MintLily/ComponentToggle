@@ -44,7 +44,7 @@ namespace ComponentToggle.Utilities.Config
                     Main.VRC_AvatarPedestal.Value = Get().VRC_AvatarPedestal;
                     faulted = false;
                 }
-                catch (Exception e) { faulted = true; MelonLogger.Error(e.ToString()); }
+                catch { faulted = true; }
 
                 if (!faulted)
                 {
