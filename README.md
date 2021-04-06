@@ -36,6 +36,10 @@ ShowAvatarsPedestals - Show Avatar Pedestals<br>
 ![Preview 2 - Menu Content](https://kortyboi.com/img/upload/VRChat_sojfrXy4Gy.png)<br>
 
 # Change Log
+### v1.5.0
+* Added SDK3 Video Player toggle
+* Fixed an issue that would cuase all toggles to be set to false
+
 ### v1.4.0
 * Removed Custom Config because corruptions are horrible
 * * Made config system go through MelonPrefs for ease
