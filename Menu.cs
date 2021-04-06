@@ -1,7 +1,10 @@
 ﻿using System.Collections;
+using MelonLoader;
 using RubyButtonAPICT;
 using UnityEngine;
 using ComponentToggle.Components;
+using UnityEngine.UI;
+using ComponentToggle.Utilities;
 
 namespace ComponentToggle
 {
@@ -17,6 +20,7 @@ namespace ComponentToggle
         public static QMToggleButton TogglePostProcessing;
         public static QMToggleButton TogglePedestal;
         private static QMSingleButton RefreshButton;
+        public static QMSingleButton RefreshVidButton;
 
         public static void Init()
         {
@@ -51,7 +55,7 @@ namespace ComponentToggle
             {
                 Main.VRC_SyncVideoPlayer.Value = false;
                 _VRCSyncVideoPlayer.Toggle();
-            }, "TOGGLE: Video Players\n<color=red>Does not work in Udon Worlds</color>");
+            }, "TOGGLE: Video Players");
 
             TogglePens = new QMToggleButton(menu, 4, 0, "Pens", () =>
             {
@@ -80,7 +84,6 @@ namespace ComponentToggle
                 Main.VRC_MirrorReflect.Value = false;
                 VRCMirrorReflect.Toggle();
             }, "TOGGLE: All Mirrors");
-            ToggleMirror.setIntractable(false);
 
             TogglePostProcessing = new QMToggleButton(menu, 3, 1, "PostProcessing", () =>
             {
@@ -111,9 +114,26 @@ namespace ComponentToggle
                 Components.PostProcessing.OnLevelLoad();
                 VRCAvatarPedestal.OnLevelLoad();
                 Components.VRCMirrorReflect.OnLevelLoad();
+
+                RefreshVidButton.setActive(false);
+                Components._VRCSyncVideoPlayer.OnLevelLoad();
+                MelonCoroutines.Start(FlashNotice(true));
+                ToggleVideoPlayers.Disabled(false);
             }, "Pressing this will attempt to recache all objects in the world.\nThis is the same thing as if you rejoin the world.");
             RefreshButton.getGameObject().GetComponent<RectTransform>().sizeDelta /= new Vector2(1.0f, 2.0f);
             RefreshButton.getGameObject().GetComponent<RectTransform>().anchoredPosition += new Vector2(0f, -105f);
+
+            RefreshVidButton = new QMSingleButton(menu, 3, -2, "Refresh\nVideo Players", () =>
+            {
+                RefreshVidButton.setActive(false);
+                Components._VRCSyncVideoPlayer.OnLevelLoad();
+                MelonCoroutines.Start(FlashNotice(true));
+                ToggleVideoPlayers.Disabled(false);
+            }, "Video Players need to be reset for SDK3 worlds.");
+            RefreshVidButton.getGameObject().GetComponent<RectTransform>().sizeDelta /= new Vector2(1.0f, 2.0f);
+            RefreshVidButton.getGameObject().GetComponent<RectTransform>().anchoredPosition += new Vector2(0f, -105f);
+            RefreshVidButton.getGameObject().GetComponentInChildren<Text>().fontSize = 55;
+            RefreshVidButton.setActive(false);
 
             menu.getMainButton().getGameObject().name = "CTMenu";
 
@@ -142,6 +162,19 @@ namespace ComponentToggle
             {
                 WorldWasChanged = false;
                 setAllButtonToggleStates(true);
+            }
+
+            if (RoomExtensions.GetWorld() != null && Resources.FindObjectsOfTypeAll<VRC.SDK3.Components.VRCSceneDescriptor>().Count > 0)
+            {
+                RefreshVidButton.setActive(true);
+                MelonCoroutines.Start(FlashNotice(false));
+                ToggleVideoPlayers.Disabled(true);
+            }
+            else
+            {
+                RefreshVidButton.setActive(false);
+                MelonCoroutines.Start(FlashNotice(true));
+                ToggleVideoPlayers.Disabled(false);
             }
             yield break;
         }
@@ -186,6 +219,21 @@ namespace ComponentToggle
                     TogglePostProcessing.Disabled(false);
                     TogglePedestal.Disabled(false);
                     break;
+            }
+        }
+
+        public static IEnumerator FlashNotice(bool @break)
+        {
+            while (!@break)
+            {
+                Color newCol;
+
+                RefreshVidButton.setTextColor(Color.white);
+                yield return new WaitForSeconds(1.5f);
+
+                if (ColorUtility.TryParseHtmlString("#ffadad", out newCol))
+                    RefreshVidButton.setTextColor(newCol);
+                yield return new WaitForSeconds(1.5f);
             }
         }
     }
