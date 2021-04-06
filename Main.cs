@@ -8,11 +8,11 @@ namespace ComponentToggle
 {
     public static class BuildInfo
     {
-        public const string Name = "ComponentToggle"; // Name of the Mod.  (MUST BE SET)
-        public const string Author = "Korty (Lily)"; // Author of the Mod.  (Set as null if none)
-        public const string Company = null; // Company that made the Mod.  (Set as null if none)
-        public const string Version = "1.5.0"; // Version of the Mod.  (MUST BE SET)
-        public const string DownloadLink = "https://github.com/KortyBoi/ComponentToggle"; // Download Link for the Mod.  (Set as null if none)
+        public const string Name = "ComponentToggle";
+        public const string Author = "Korty (Lily)";
+        public const string Company = null;
+        public const string Version = "1.5.0";
+        public const string DownloadLink = "https://github.com/KortyBoi/ComponentToggle";
         public const string Description = "Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, Pens, Chairs, Mirrors, Post Processing, and Avatar Pedestals)";
     }
 
