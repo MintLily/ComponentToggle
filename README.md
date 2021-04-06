@@ -38,7 +38,7 @@ ShowAvatarsPedestals - Show Avatar Pedestals<br>
 # Change Log
 ### v1.5.0
 * Added SDK3 Video Player toggle
-* Fixed an issue that would cuase all toggles to be set to false
+* Fixed an issue that would cause all toggles to be set to false
 
 ### v1.4.0
 * Removed Custom Config because corruptions are horrible
