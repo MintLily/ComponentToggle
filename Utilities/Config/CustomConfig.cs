@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MelonLoader;
 using Newtonsoft.Json;
 
@@ -48,12 +44,12 @@ namespace ComponentToggle.Utilities.Config
                     Main.VRC_AvatarPedestal.Value = Get().VRC_AvatarPedestal;
                     faulted = false;
                 }
-                catch { faulted = true; }
+                catch (Exception e) { faulted = true; MelonLogger.Error(e.ToString()); }
 
                 if (!faulted)
                 {
                     File.Delete(final);
-                    Menu.setAllButtonToggleStates(false); // Set States After Conversion
+                    ComponentToggle.Menu.setAllButtonToggleStates(true); // Set States After Conversion
                 }
             }
             catch 
