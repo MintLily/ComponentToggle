@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MelonLoader;
+﻿using System.Collections;
 using RubyButtonAPICT;
 using UnityEngine;
 using ComponentToggle.Components;
-using ComponentToggle.Utilities.Config;
 
 namespace ComponentToggle
 {
@@ -23,6 +16,7 @@ namespace ComponentToggle
         public static QMToggleButton ToggleMirror;
         public static QMToggleButton TogglePostProcessing;
         public static QMToggleButton TogglePedestal;
+        private static QMSingleButton RefreshButton;
 
         public static void Init()
         {
@@ -86,6 +80,7 @@ namespace ComponentToggle
                 Main.VRC_MirrorReflect.Value = false;
                 VRCMirrorReflect.Toggle();
             }, "TOGGLE: All Mirrors");
+            ToggleMirror.setIntractable(false);
 
             TogglePostProcessing = new QMToggleButton(menu, 3, 1, "PostProcessing", () =>
             {
@@ -106,6 +101,21 @@ namespace ComponentToggle
                 Main.VRC_AvatarPedestal.Value = false;
                 VRCAvatarPedestal.Disable();
             }, "TOGGLE: Avatar Pedestals throughout the world");
+
+            RefreshButton = new QMSingleButton(menu, 4, -2, "Refresh", () =>
+            {
+                Components.VRCPickup.OnLevelLoad();
+                Components._VRCSyncVideoPlayer.OnLevelLoad();
+                Components.Pens.OnLevelLoad();
+                Utilities.Patches.PatchVRC_Station();
+                Components.PostProcessing.OnLevelLoad();
+                VRCAvatarPedestal.OnLevelLoad();
+                Components.VRCMirrorReflect.OnLevelLoad();
+            }, "Pressing this will attempt to recache all objects in the world.\nThis is the same thing as if you rejoin the world.");
+            RefreshButton.getGameObject().GetComponent<RectTransform>().sizeDelta /= new Vector2(1.0f, 2.0f);
+            RefreshButton.getGameObject().GetComponent<RectTransform>().anchoredPosition += new Vector2(0f, -105f);
+
+            menu.getMainButton().getGameObject().name = "CTMenu";
 
             // Sets Toggle States on UI Init
             setAllButtonToggleStates(false);
