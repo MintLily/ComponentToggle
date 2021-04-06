@@ -1,26 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MelonLoader;
-using UnityEngine;
-using VRC;
-using VRC.SDKBase;
-using VRCSDK2;
-using ComponentToggle.Utilities.Config;
-
-namespace ComponentToggle.Components
+﻿namespace ComponentToggle.Components
 {
     class VRCMirrorReflect
     {
         public static VRCSDK2.VRC_MirrorReflection[] stored_sdk2;
         public static MirrorReflection[] stored_sdk3;
 
-        public static void OnLevelLoad()
-        {
-            Store();
-        }
+        public static void OnLevelLoad() { Store(); }
 
         private static void Store()
         {
