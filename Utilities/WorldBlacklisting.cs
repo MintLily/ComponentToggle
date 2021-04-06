@@ -56,20 +56,7 @@ namespace ComponentToggle.Utilities
                         else if (Worlds.Any(x => x.buttonNumber.Equals(7))) ComponentToggle.Menu.BlockActions(7);
                     }
                     else
-                    {
                         ComponentToggle.Menu.BlockActions(99);
-                    }
-
-                    if (RoomExtensions.GetWorld() != null && Resources.FindObjectsOfTypeAll<VRC.SDK3.Components.VRCSceneDescriptor>().Count > 0)
-                    {
-                        ComponentToggle.Menu.BlockActions(2);
-                        if (Main.isDebug)
-                            MelonLogger.Msg("Detected SDK3 World, VideoPlayer Toggle Blocked");
-                    }
-                    else
-                    {
-                        ComponentToggle.Menu.BlockActions(99);
-                    }
                 }
             }
             catch { MelonLogger.Error("Failed to Apply Actions or Read from list of worlds"); }

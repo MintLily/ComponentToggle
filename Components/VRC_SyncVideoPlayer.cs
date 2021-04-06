@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MelonLoader;
-using UnityEngine;
-using VRC;
-using VRC.SDKBase;
+﻿using UnityEngine;
+using UnityEngine.Video;
 using VRCSDK2;
 using ComponentToggle.Utilities;
-using System.Collections;
-using ComponentToggle.Utilities.Config;
+using RenderHeads.Media.AVProVideo;
 
 namespace ComponentToggle.Components
 {
@@ -18,6 +10,8 @@ namespace ComponentToggle.Components
     {
         public static VRC_SyncVideoPlayer[] stored_sdk2;
         public static SyncVideoPlayer[] stored_sdk3;
+        public static MediaPlayer[] stored_sdk3_2;
+        public static VideoPlayer[] stored_sdk3_3;
 
         public static void OnLevelLoad()
         {
@@ -27,7 +21,11 @@ namespace ComponentToggle.Components
         private static void Store()
         {
             if (RoomExtensions.GetWorld() != null && Resources.FindObjectsOfTypeAll<VRC.SDK3.Components.VRCSceneDescriptor>().Count > 0)
+            {
                 stored_sdk3 = Resources.FindObjectsOfTypeAll<SyncVideoPlayer>();
+                stored_sdk3_2 = Resources.FindObjectsOfTypeAll<MediaPlayer>();
+                stored_sdk3_3 = Resources.FindObjectsOfTypeAll<VideoPlayer>();
+            }
             else
                 stored_sdk2 = Resources.FindObjectsOfTypeAll<VRC_SyncVideoPlayer>();
         }
@@ -35,17 +33,64 @@ namespace ComponentToggle.Components
         public static void Toggle(bool tempOn = false)
         {
             if (stored_sdk2 == null) Store();
-            foreach (var gameObject in stored_sdk2)
+            if (RoomExtensions.GetWorld() != null && Resources.FindObjectsOfTypeAll<VRC.SDK3.Components.VRCSceneDescriptor>().Count > 0)
             {
-                if (tempOn)
+                foreach (var gameObject in stored_sdk3)
                 {
-                    gameObject.GetComponent<VRC_SyncVideoPlayer>().enabled = true;
-                    gameObject.gameObject.SetActive(true);
+                    if (tempOn)
+                    {
+                        gameObject.GetComponent<SyncVideoPlayer>().enabled = true;
+                        gameObject.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        gameObject.GetComponent<SyncVideoPlayer>().enabled = Main.VRC_SyncVideoPlayer.Value;
+                        gameObject.gameObject.SetActive(Main.VRC_SyncVideoPlayer.Value);
+                    }
                 }
-                else
+
+                foreach (var gameObject in stored_sdk3_2)
                 {
-                    gameObject.GetComponent<VRC_SyncVideoPlayer>().enabled = Main.VRC_SyncVideoPlayer.Value;
-                    gameObject.gameObject.SetActive(Main.VRC_SyncVideoPlayer.Value);
+                    if (tempOn)
+                    {
+                        gameObject.GetComponent<MediaPlayer>().enabled = true;
+                        gameObject.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        gameObject.GetComponent<MediaPlayer>().enabled = Main.VRC_SyncVideoPlayer.Value;
+                        gameObject.gameObject.SetActive(Main.VRC_SyncVideoPlayer.Value);
+                    }
+                }
+
+                foreach (var gameObject in stored_sdk3_3)
+                {
+                    if (tempOn)
+                    {
+                        gameObject.GetComponent<VideoPlayer>().enabled = true;
+                        gameObject.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        gameObject.GetComponent<VideoPlayer>().enabled = Main.VRC_SyncVideoPlayer.Value;
+                        gameObject.gameObject.SetActive(Main.VRC_SyncVideoPlayer.Value);
+                    }
+                }
+            }
+            else
+            {
+                foreach (var gameObject in stored_sdk2)
+                {
+                    if (tempOn)
+                    {
+                        gameObject.GetComponent<VRC_SyncVideoPlayer>().enabled = true;
+                        gameObject.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        gameObject.GetComponent<VRC_SyncVideoPlayer>().enabled = Main.VRC_SyncVideoPlayer.Value;
+                        gameObject.gameObject.SetActive(Main.VRC_SyncVideoPlayer.Value);
+                    }
                 }
             }
         }
