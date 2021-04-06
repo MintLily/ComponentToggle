@@ -1,39 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using ComponentToggle.Utilities.Config;
-using System.Collections;
-using System.Net;
-using MelonLoader;
-using System.ComponentModel;
-using ComponentToggle.Utilities;
-using Harmony;
+using Markers = VRC.SDK.Internal.Whiteboard.Marker;
 
 namespace ComponentToggle.Components
 {
     class Pens
     {
-        private static VRC.SDK.Internal.Whiteboard.Marker[] Markers;
+        private static Markers[] Markers;
         private static List<GameObject> penArray;
         private static GameObject QVPens;
         private static GameObject QVEraser;
         private static GameObject MidnightRooftop_TopPens;
         private static GameObject MidnightRooftop_BottomPens;
-        private static GameObject GenericPens_1;
-        private static GameObject GenericPens_2;
-        private static GameObject GenericPens_3;
-        private static GameObject GenericPens_4;
-
-        private static GameObject GenericEraser_1;
-        private static GameObject GenericEraser_2;
-        private static GameObject GenericEraser_3;
+        private static GameObject GenericPens_1, GenericPens_2, GenericPens_3, GenericPens_4;
+        private static GameObject GenericEraser_1, GenericEraser_2, GenericEraser_3;
+        private static GameObject VRCHome_PenSet;
 
         public static void OnLevelLoad()
         {
-            Markers = UnityEngine.Object.FindObjectsOfType<VRC.SDK.Internal.Whiteboard.Marker>();
+            Markers = UnityEngine.Object.FindObjectsOfType<Markers>();
 
             penArray = new List<GameObject>();
             QVPens = GameObject.Find("QvPen");
@@ -44,6 +29,7 @@ namespace ComponentToggle.Components
             GenericPens_2 = GameObject.Find("Pens");
             GenericPens_3 = GameObject.Find("PenSet");
             GenericPens_4 = GameObject.Find("Markers");
+            VRCHome_PenSet = GameObject.Find("_Pickups/PenSet");
 
             GenericEraser_1 = GameObject.Find("Eraser");
             GenericEraser_2 = GameObject.Find("Erasers");
@@ -57,6 +43,7 @@ namespace ComponentToggle.Components
             penArray.Add(GenericPens_2);
             penArray.Add(GenericPens_3);
             penArray.Add(GenericPens_4);
+            penArray.Add(VRCHome_PenSet);
             penArray.Add(GenericEraser_1);
             penArray.Add(GenericEraser_2);
             penArray.Add(GenericEraser_3);
@@ -78,12 +65,12 @@ namespace ComponentToggle.Components
             {
                 if (tempOn)
                 {
-                    gameObject.GetComponent<VRC.SDK.Internal.Whiteboard.Marker>().enabled = true;
+                    gameObject.GetComponent<Markers>().enabled = true;
                     gameObject.gameObject.SetActive(true);
                 }
                 else
                 {
-                    gameObject.GetComponent<VRC.SDK.Internal.Whiteboard.Marker>().enabled = Main.Pens.Value;
+                    gameObject.GetComponent<Markers>().enabled = Main.Pens.Value;
                     gameObject.gameObject.SetActive(Main.Pens.Value);
                 }
             }
