@@ -3,6 +3,9 @@ using System;
 using ComponentToggle.Components;
 using ComponentToggle.Utilities.Config;
 using System.IO;
+using UIExpansionKit.API;
+using UnityEngine.UI;
+using UnityEngine;
 
 namespace ComponentToggle
 {
@@ -29,6 +32,9 @@ namespace ComponentToggle
         public static MelonPreferences_Entry<bool> PostProcessing;
         public static MelonPreferences_Entry<bool> VRC_AvatarPedestal;
 
+        public static MelonPreferences_Entry<bool> UIXMenu;
+        private static GameObject UIXMenuGO;
+
         public override void OnApplicationStart() // Runs after Game Initialization.
         {
             if (MelonDebug.IsEnabled() || Environment.CommandLine.Contains("--ct.debug"))
@@ -47,13 +53,28 @@ namespace ComponentToggle
             PostProcessing = (MelonPreferences_Entry<bool>)melon.CreateEntry("EnablePostProcessing", true, "Enable Post Processing");
             VRC_AvatarPedestal = (MelonPreferences_Entry<bool>)melon.CreateEntry("ShowAvatarsPedestals", true, "Show Avatars Pedestals");
 
+            UIXMenu = (MelonPreferences_Entry<bool>)melon.CreateEntry("ShowUIXMenuButton", true, "Put Menu on UIExpansionKit's Quick Menu");
+
             try { CustomConfig.Load(); }
             catch
             {
                 if (!File.Exists(CustomConfig.final) && isDebug)
                     MelonLogger.Msg("Not an error > Old Config file does not exist, ignoring function.");
             }
-            
+
+            try
+            {
+                ExpansionKitApi.GetExpandedMenu(ExpandedMenu.QuickMenu).AddSimpleButton("Component\nToggle", () =>
+                {
+                    Menu.menu.getMainButton().getGameObject().GetComponent<Button>().onClick.Invoke();
+                }, new Action<GameObject>((GameObject obj) =>
+                {
+                    UIXMenuGO = obj;
+                    obj.SetActive(UIXMenu.Value);
+                }));
+            }
+            catch (Exception e) { MelonLogger.Error("UIXMenu:\n" + e.ToString()); }
+
             MelonLogger.Msg("Initialized!");
         }
 
@@ -103,10 +124,13 @@ namespace ComponentToggle
                     " ============== bool VRC_MirrorReflect     = " + VRC_MirrorReflect.Value.ToString() + "\n" +
                     " ============== bool PostProcessing        = " + PostProcessing.Value.ToString() + "\n" +
                     " ============== bool VRC_AvatarPedestal    = " + VRC_AvatarPedestal.Value.ToString() + "\n" +
+                    " ============== bool UIXMenu               = " + UIXMenu.Value.ToString() + "\n" +
                     " ====================================================");
             }
 
             Menu.setAllButtonToggleStates(true); // When saved, button toggle states are set, (the bool) the actions of the buttons are invoked
+
+            try { UIXMenuGO.SetActive(UIXMenu.Value); } catch { }
         }
     }
 }
