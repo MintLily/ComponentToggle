@@ -13,10 +13,7 @@ namespace ComponentToggle.Components
         public static MediaPlayer[] stored_sdk3_2;
         public static VideoPlayer[] stored_sdk3_3;
 
-        public static void OnLevelLoad()
-        {
-            Store();
-        }
+        public static void OnLevelLoad() { Store(); }
 
         private static void Store()
         {
@@ -32,9 +29,9 @@ namespace ComponentToggle.Components
 
         public static void Toggle(bool tempOn = false)
         {
-            if (stored_sdk2 == null) Store();
             if (RoomExtensions.GetWorld() != null && Resources.FindObjectsOfTypeAll<VRC.SDK3.Components.VRCSceneDescriptor>().Count > 0)
             {
+                if (stored_sdk3 == null || stored_sdk3_2 == null || stored_sdk3_3 == null) Store();
                 foreach (var gameObject in stored_sdk3)
                 {
                     if (tempOn)
@@ -79,6 +76,7 @@ namespace ComponentToggle.Components
             }
             else
             {
+                if (stored_sdk2 == null) Store();
                 foreach (var gameObject in stored_sdk2)
                 {
                     if (tempOn)
