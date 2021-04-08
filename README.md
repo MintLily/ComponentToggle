@@ -20,6 +20,7 @@ EnableChairs = true
 ShowMirrors = true
 EnablePostProcessing = true
 ShowAvatarsPedestals = true
+ShowUIXMenuButton = true
 ```
 <br>
 EnablePickup - Allow Pickups<br>
@@ -30,6 +31,7 @@ EnableChairs - Allow yourself to sit in chairs<br>
 ShowMirrors - Show Mirrors<br>
 EnablePostProcessing - Show PostProcessing<br>
 ShowAvatarsPedestals - Show Avatar Pedestals<br>
+ShowUIXMenuButton - Toggle a UIExpansionKit Menu Item for opening the menu
 
 ### Preview
 ![Preview 1 - Menu Location](https://kortyboi.com/img/upload/VRChat_ZmRFcJMvyb.jpg)<br>

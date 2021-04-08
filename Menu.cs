@@ -53,6 +53,7 @@ namespace ComponentToggle
                 _VRCSyncVideoPlayer.Toggle();
             }, "Disabled", () =>
             {
+                _VRCSyncVideoPlayer.OnLevelLoad();
                 Main.VRC_SyncVideoPlayer.Value = false;
                 _VRCSyncVideoPlayer.Toggle();
             }, "TOGGLE: Video Players");
@@ -112,28 +113,12 @@ namespace ComponentToggle
                 Components.Pens.OnLevelLoad();
                 Utilities.Patches.PatchVRC_Station();
                 Components.PostProcessing.OnLevelLoad();
+                Components._VRCSyncVideoPlayer.OnLevelLoad();
                 VRCAvatarPedestal.OnLevelLoad();
                 Components.VRCMirrorReflect.OnLevelLoad();
-
-                RefreshVidButton.setActive(false);
-                Components._VRCSyncVideoPlayer.OnLevelLoad();
-                MelonCoroutines.Start(FlashNotice(true));
-                ToggleVideoPlayers.Disabled(false);
             }, "Pressing this will attempt to recache all objects in the world.\nThis is the same thing as if you rejoin the world.");
             RefreshButton.getGameObject().GetComponent<RectTransform>().sizeDelta /= new Vector2(1.0f, 2.0f);
             RefreshButton.getGameObject().GetComponent<RectTransform>().anchoredPosition += new Vector2(0f, -105f);
-
-            RefreshVidButton = new QMSingleButton(menu, 3, -2, "Refresh\nVideo Players", () =>
-            {
-                RefreshVidButton.setActive(false);
-                Components._VRCSyncVideoPlayer.OnLevelLoad();
-                MelonCoroutines.Start(FlashNotice(true));
-                ToggleVideoPlayers.Disabled(false);
-            }, "Video Players need to be reset for SDK3 worlds.");
-            RefreshVidButton.getGameObject().GetComponent<RectTransform>().sizeDelta /= new Vector2(1.0f, 2.0f);
-            RefreshVidButton.getGameObject().GetComponent<RectTransform>().anchoredPosition += new Vector2(0f, -105f);
-            RefreshVidButton.getGameObject().GetComponentInChildren<Text>().fontSize = 55;
-            RefreshVidButton.setActive(false);
 
             menu.getMainButton().getGameObject().name = "CTMenu";
 
@@ -162,19 +147,6 @@ namespace ComponentToggle
             {
                 WorldWasChanged = false;
                 setAllButtonToggleStates(true);
-            }
-
-            if (RoomExtensions.GetWorld() != null && Resources.FindObjectsOfTypeAll<VRC.SDK3.Components.VRCSceneDescriptor>().Count > 0)
-            {
-                RefreshVidButton.setActive(true);
-                MelonCoroutines.Start(FlashNotice(false));
-                ToggleVideoPlayers.Disabled(true);
-            }
-            else
-            {
-                RefreshVidButton.setActive(false);
-                MelonCoroutines.Start(FlashNotice(true));
-                ToggleVideoPlayers.Disabled(false);
             }
             yield break;
         }
@@ -219,21 +191,6 @@ namespace ComponentToggle
                     TogglePostProcessing.Disabled(false);
                     TogglePedestal.Disabled(false);
                     break;
-            }
-        }
-
-        public static IEnumerator FlashNotice(bool @break)
-        {
-            while (!@break)
-            {
-                Color newCol;
-
-                RefreshVidButton.setTextColor(Color.white);
-                yield return new WaitForSeconds(1.5f);
-
-                if (ColorUtility.TryParseHtmlString("#ffadad", out newCol))
-                    RefreshVidButton.setTextColor(newCol);
-                yield return new WaitForSeconds(1.5f);
             }
         }
     }
