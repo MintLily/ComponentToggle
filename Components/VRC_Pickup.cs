@@ -16,10 +16,11 @@ namespace ComponentToggle.Components
             stored = UnityEngine.Object.FindObjectsOfType<VRC_Pickup>();
         }
 
-        public static void Toggle(bool tempOn = false)
+        public static void Toggle(bool tempOn = false, bool exit = false)
         {
             if (stored == null) Store();
 
+            if (exit) return;
             foreach (var gameObject in stored)
             {
                 if (tempOn)

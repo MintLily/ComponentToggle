@@ -38,6 +38,9 @@ ShowUIXMenuButton - Toggle a UIExpansionKit Menu Item for opening the menu
 ![Preview 2 - Menu Content](https://kortyboi.com/img/upload/VRChat_sojfrXy4Gy.png)<br>
 
 # Change Log
+### v1.5.1
+* Fixed an issue where everyone would be able to pickup object in certain worlds
+
 ### v1.5.0
 * Added UIExpansionKit Menu option
 * Added SDK3 Video Player toggle

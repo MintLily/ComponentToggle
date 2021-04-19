@@ -108,14 +108,14 @@ namespace ComponentToggle
 
             RefreshButton = new QMSingleButton(menu, 4, -2, "Refresh", () =>
             {
-                Components.VRCPickup.OnLevelLoad();
-                Components._VRCSyncVideoPlayer.OnLevelLoad();
-                Components.Pens.OnLevelLoad();
-                Utilities.Patches.PatchVRC_Station();
-                Components.PostProcessing.OnLevelLoad();
-                Components._VRCSyncVideoPlayer.OnLevelLoad();
+                VRCPickup.OnLevelLoad();
+                _VRCSyncVideoPlayer.OnLevelLoad();
+                Pens.OnLevelLoad();
+                Patches.PatchVRC_Station();
+                PostProcessing.OnLevelLoad();
+                _VRCSyncVideoPlayer.OnLevelLoad();
                 VRCAvatarPedestal.OnLevelLoad();
-                Components.VRCMirrorReflect.OnLevelLoad();
+                VRCMirrorReflect.OnLevelLoad();
             }, "Pressing this will attempt to recache all objects in the world.\nThis is the same thing as if you rejoin the world.");
             RefreshButton.getGameObject().GetComponent<RectTransform>().sizeDelta /= new Vector2(1.0f, 2.0f);
             RefreshButton.getGameObject().GetComponent<RectTransform>().anchoredPosition += new Vector2(0f, -105f);
@@ -158,7 +158,7 @@ namespace ComponentToggle
                 case 1:
                     TogglePickup.Disabled(true);
                     TogglePickupObject.Disabled(true);
-                    VRCPickup.Toggle(true);
+                    VRCPickup.Toggle(true, true);
                     break;
                 case 2:
                     ToggleVideoPlayers.Disabled(true);

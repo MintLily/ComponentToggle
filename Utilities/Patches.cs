@@ -5,7 +5,7 @@ namespace ComponentToggle.Utilities
 {
     class Patches
     {
-        private static HarmonyInstance ComponentTogglePatch = HarmonyInstance.Create("ComponentToggle");
+        private static readonly HarmonyInstance ComponentTogglePatch = HarmonyInstance.Create("ComponentToggle");
 
         public static void PatchVRC_Station()
         {

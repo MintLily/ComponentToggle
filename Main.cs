@@ -14,7 +14,7 @@ namespace ComponentToggle
         public const string Name = "ComponentToggle";
         public const string Author = "Korty (Lily)";
         public const string Company = null;
-        public const string Version = "1.5.0";
+        public const string Version = "1.5.1";
         public const string DownloadLink = "https://github.com/KortyBoi/ComponentToggle";
         public const string Description = "Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, Pens, Chairs, Mirrors, Post Processing, and Avatar Pedestals)";
     }
@@ -102,8 +102,9 @@ namespace ComponentToggle
                     Utilities.Patches.PatchVRC_Station();
                     Components.VRCMirrorReflect.OnLevelLoad();
                     Components.PostProcessing.OnLevelLoad();
-                    MelonCoroutines.Start(Menu.OnLevelLoad());
                     VRCAvatarPedestal.OnLevelLoad();
+
+                    MelonCoroutines.Start(Menu.OnLevelLoad());
                     Menu.setAllButtonToggleStates(false);
                     break;
             }
