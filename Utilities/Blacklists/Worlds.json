@@ -17,4 +17,9 @@
 	"WorldName": "Cards Against Humanity!",
 	"WorldID": "wrld_caf792c9-1df1-4cc3-96f1-80f65bca2f3d",
 	"buttonNumber": 1
+},
+{
+	"WorldName": "Town of Salem",
+	"WorldID": "wrld_42d023dc-1b2d-439a-b741-09113ca0e59a",
+	"buttonNumber": 7
 }]
