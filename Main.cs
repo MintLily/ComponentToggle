@@ -12,10 +12,10 @@ namespace ComponentToggle
     public static class BuildInfo
     {
         public const string Name = "ComponentToggle";
-        public const string Author = "Korty (Lily)";
+        public const string Author = "Lily";
         public const string Company = null;
         public const string Version = "1.5.2";
-        public const string DownloadLink = "https://github.com/KortyBoi/ComponentToggle";
+        public const string DownloadLink = "https://github.com/MintLily/ComponentToggle";
         public const string Description = "Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, Pens, Chairs, Mirrors, Post Processing, and Avatar Pedestals)";
     }
 
