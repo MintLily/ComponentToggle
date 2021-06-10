@@ -46,8 +46,7 @@ namespace ComponentToggle
                 MelonLogger.Msg("Debug mode is active");
             }
 
-            if (typeof(MelonMod).GetMethod("VRChat_OnUiManagerInit") == null)
-                MelonCoroutines.Start(GetAssembly());
+            MelonCoroutines.Start(GetAssembly());
 
             melon = MelonPreferences.CreateCategory(BuildInfo.Name, BuildInfo.Name);
             VRC_Pickup = (MelonPreferences_Entry<bool>)melon.CreateEntry("EnablePickup", true, "Enable Pickup");
