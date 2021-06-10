@@ -7,7 +7,7 @@ Click [this link](https://melonwiki.xyz/) to get started!
 
 ### Prerequisites
 MelonLoader: v0.3.0+ (Alpha)<br>
-Game: VRChat (build 1088+)<br>
+Game: VRChat (build 1102+)<br>
 
 ### MelonPreferences.cfg (Default Values)
 ```ini
@@ -38,6 +38,12 @@ ShowUIXMenuButton - Toggle a UIExpansionKit Menu Item for opening the menu
 ![Preview 2 - Menu Content](https://kortyboi.com/img/upload/VRChat_sojfrXy4Gy.png)<br>
 
 # Change Log
+### v1.5.4
+* Added support for MelonLoader v0.4.0
+
+### v1.5.3
+* Internal Link Updates
+
 ### v1.5.2
 * Fixed VRC_StationInternal for Chair toggles
 

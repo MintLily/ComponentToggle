@@ -1,5 +1,8 @@
 using MelonLoader;
 using System;
+using System.Reflection;
+using System.Collections;
+using System.Linq;
 using ComponentToggle.Components;
 using ComponentToggle.Utilities.Config;
 using System.IO;
@@ -14,7 +17,7 @@ namespace ComponentToggle
         public const string Name = "ComponentToggle";
         public const string Author = "Lily";
         public const string Company = null;
-        public const string Version = "1.5.3";
+        public const string Version = "1.5.4";
         public const string DownloadLink = "https://github.com/MintLily/ComponentToggle";
         public const string Description = "Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, Pens, Chairs, Mirrors, Post Processing, and Avatar Pedestals)";
     }
@@ -43,6 +46,9 @@ namespace ComponentToggle
                 MelonLogger.Msg("Debug mode is active");
             }
 
+            if (typeof(MelonMod).GetMethod("VRChat_OnUiManagerInit") == null)
+                MelonCoroutines.Start(GetAssembly());
+
             melon = MelonPreferences.CreateCategory(BuildInfo.Name, BuildInfo.Name);
             VRC_Pickup = (MelonPreferences_Entry<bool>)melon.CreateEntry("EnablePickup", true, "Enable Pickup");
             VRC_Pickup_Objects = (MelonPreferences_Entry<bool>)melon.CreateEntry("ShowPickupObjects", true, "Show Pickup Objects");
@@ -56,14 +62,12 @@ namespace ComponentToggle
             UIXMenu = (MelonPreferences_Entry<bool>)melon.CreateEntry("ShowUIXMenuButton", true, "Put Menu on UIExpansionKit's Quick Menu");
 
             try { CustomConfig.Load(); }
-            catch
-            {
+            catch {
                 if (!File.Exists(CustomConfig.final) && isDebug)
                     MelonLogger.Msg("Not an error > Old Config file does not exist, ignoring function.");
             }
 
-            try
-            {
+            try {
                 ExpansionKitApi.GetExpandedMenu(ExpandedMenu.QuickMenu).AddSimpleButton("Component\nToggle", () =>
                 {
                     Menu.menu.getMainButton().getGameObject().GetComponent<Button>().onClick.Invoke();
@@ -78,7 +82,7 @@ namespace ComponentToggle
             MelonLogger.Msg("Initialized!");
         }
 
-        public override void VRChat_OnUiManagerInit() 
+        private void OnUiManagerInit() 
         {
             CustomConfig.ConvertAndRemove();
             Menu.Init();
@@ -88,8 +92,7 @@ namespace ComponentToggle
 
         public override void OnSceneWasLoaded(int buildIndex, string sceneName)
         {
-            switch (buildIndex)
-            {
+            switch (buildIndex) {
                 case 0:
                 case 1:
                     break;
@@ -113,8 +116,7 @@ namespace ComponentToggle
 
         public override void OnPreferencesSaved()
         {
-            if (isDebug)
-            {
+            if (isDebug) {
                 MelonLogger.Msg("[Debug] \n" +
                     " ================= Preferences Values: ============== \n" +
                     " ============== bool VRC_Pickup            = " + VRC_Pickup.Value.ToString() + "\n" +
@@ -132,6 +134,29 @@ namespace ComponentToggle
             Menu.setAllButtonToggleStates(true); // When saved, button toggle states are set, (the bool) the actions of the buttons are invoked
 
             try { UIXMenuGO.SetActive(UIXMenu.Value); } catch { }
+        }
+
+        private IEnumerator GetAssembly()
+        {
+            Assembly assemblyCSharp = null;
+            while (true) {
+                assemblyCSharp = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(assembly => assembly.GetName().Name == "Assembly-CSharp");
+                if (assemblyCSharp == null)
+                    yield return null;
+                else
+                    break;
+            }
+
+            MelonCoroutines.Start(WaitForUiManagerInit(assemblyCSharp));
+        }
+
+        private IEnumerator WaitForUiManagerInit(Assembly assemblyCSharp)
+        {
+            Type vrcUiManager = assemblyCSharp.GetType("VRCUiManager");
+            PropertyInfo uiManagerSingleton = vrcUiManager.GetProperties().First(pi => pi.PropertyType == vrcUiManager);
+            while (uiManagerSingleton.GetValue(null) == null)
+                yield return null;
+            OnUiManagerInit();
         }
     }
 }
