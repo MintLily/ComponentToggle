@@ -17,29 +17,22 @@ namespace ComponentToggle
         public const string Name = "ComponentToggle";
         public const string Author = "Lily";
         public const string Company = null;
-        public const string Version = "1.5.4";
+        public const string Version = "1.6.0";
         public const string DownloadLink = "https://github.com/MintLily/ComponentToggle";
         public const string Description = "Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, Pens, Chairs, Mirrors, Post Processing, and Avatar Pedestals)";
     }
 
     public class Main : MelonMod
     {
+        private MelonMod Instance;
         public static bool isDebug;
         public static MelonPreferences_Category melon;
-        public static MelonPreferences_Entry<bool> VRC_Pickup;
-        public static MelonPreferences_Entry<bool> VRC_Pickup_Objects;
-        public static MelonPreferences_Entry<bool> VRC_SyncVideoPlayer;
-        public static MelonPreferences_Entry<bool> Pens;
-        public static MelonPreferences_Entry<bool> VRC_Station;
-        public static MelonPreferences_Entry<bool> VRC_MirrorReflect;
-        public static MelonPreferences_Entry<bool> PostProcessing;
-        public static MelonPreferences_Entry<bool> VRC_AvatarPedestal;
-
-        public static MelonPreferences_Entry<bool> UIXMenu;
+        public static MelonPreferences_Entry<bool> VRC_Pickup, VRC_Pickup_Objects, VRC_SyncVideoPlayer, Pens, VRC_Station, VRC_MirrorReflect, PostProcessing, VRC_AvatarPedestal, UIXMenu;
         private static GameObject UIXMenuGO;
 
         public override void OnApplicationStart() // Runs after Game Initialization.
         {
+            Instance = this;
             if (MelonDebug.IsEnabled() || Environment.CommandLine.Contains("--ct.debug"))
             {
                 isDebug = true;
@@ -49,16 +42,16 @@ namespace ComponentToggle
             MelonCoroutines.Start(GetAssembly());
 
             melon = MelonPreferences.CreateCategory(BuildInfo.Name, BuildInfo.Name);
-            VRC_Pickup = (MelonPreferences_Entry<bool>)melon.CreateEntry("EnablePickup", true, "Enable Pickup");
-            VRC_Pickup_Objects = (MelonPreferences_Entry<bool>)melon.CreateEntry("ShowPickupObjects", true, "Show Pickup Objects");
-            VRC_SyncVideoPlayer = (MelonPreferences_Entry<bool>)melon.CreateEntry("ShowVideoPlayers", true, "Show Video Players");
-            Pens = (MelonPreferences_Entry<bool>)melon.CreateEntry("ShowPens", true, "Show Pens / Erasers");
-            VRC_Station = (MelonPreferences_Entry<bool>)melon.CreateEntry("EnableChairs", true, "Enable Chairs");
-            VRC_MirrorReflect = (MelonPreferences_Entry<bool>)melon.CreateEntry("ShowMirrors", true, "Show Mirrors");
-            PostProcessing = (MelonPreferences_Entry<bool>)melon.CreateEntry("EnablePostProcessing", true, "Enable Post Processing");
-            VRC_AvatarPedestal = (MelonPreferences_Entry<bool>)melon.CreateEntry("ShowAvatarsPedestals", true, "Show Avatars Pedestals");
+            VRC_Pickup = melon.CreateEntry("EnablePickup", true, "Enable Pickup");
+            VRC_Pickup_Objects = melon.CreateEntry("ShowPickupObjects", true, "Show Pickup Objects");
+            VRC_SyncVideoPlayer = melon.CreateEntry("ShowVideoPlayers", true, "Show Video Players");
+            Pens = melon.CreateEntry("ShowPens", true, "Show Pens / Erasers");
+            VRC_Station = melon.CreateEntry("EnableChairs", true, "Enable Chairs");
+            VRC_MirrorReflect = melon.CreateEntry("ShowMirrors", true, "Show Mirrors");
+            PostProcessing = melon.CreateEntry("EnablePostProcessing", true, "Enable Post Processing");
+            VRC_AvatarPedestal = melon.CreateEntry("ShowAvatarsPedestals", true, "Show Avatars Pedestals");
 
-            UIXMenu = (MelonPreferences_Entry<bool>)melon.CreateEntry("ShowUIXMenuButton", true, "Put Menu on UIExpansionKit's Quick Menu");
+            UIXMenu = melon.CreateEntry("ShowUIXMenuButton", true, "Put Menu on UIExpansionKit's Quick Menu");
 
             try { CustomConfig.Load(); }
             catch {
@@ -77,6 +70,8 @@ namespace ComponentToggle
                 }));
             }
             catch (Exception e) { MelonLogger.Error("UIXMenu:\n" + e.ToString()); }
+
+            Utilities.Patches.PatchVRC_Station(); // VRC_Station with HarmonyX
 
             MelonLogger.Msg("Initialized!");
         }
@@ -101,7 +96,7 @@ namespace ComponentToggle
                     Components.VRCPickup.OnLevelLoad();
                     Components._VRCSyncVideoPlayer.OnLevelLoad();
                     Components.Pens.OnLevelLoad();
-                    Utilities.Patches.PatchVRC_Station();
+                    //Utilities.Patches.PatchVRC_Station();
                     Components.VRCMirrorReflect.OnLevelLoad();
                     Components.PostProcessing.OnLevelLoad();
                     VRCAvatarPedestal.OnLevelLoad();
