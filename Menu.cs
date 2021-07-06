@@ -111,7 +111,7 @@ namespace ComponentToggle
                 VRCPickup.OnLevelLoad();
                 _VRCSyncVideoPlayer.OnLevelLoad();
                 Pens.OnLevelLoad();
-                Patches.PatchVRC_Station();
+                //Patches.PatchVRC_Station();
                 PostProcessing.OnLevelLoad();
                 _VRCSyncVideoPlayer.OnLevelLoad();
                 VRCAvatarPedestal.OnLevelLoad();
@@ -128,14 +128,14 @@ namespace ComponentToggle
 
         public static void setAllButtonToggleStates(bool Invoke)
         {
-            TogglePickup.setToggleState(Main.VRC_Pickup.Value, Invoke);
-            TogglePickupObject.setToggleState(Main.VRC_Pickup_Objects.Value, Invoke);
-            ToggleVideoPlayers.setToggleState(Main.VRC_SyncVideoPlayer.Value, Invoke);
-            TogglePens.setToggleState(Main.Pens.Value, Invoke);
-            ToggleStation.setToggleState(Main.VRC_Station.Value, Invoke);
-            ToggleMirror.setToggleState(Main.VRC_MirrorReflect.Value, Invoke);
-            TogglePostProcessing.setToggleState(Main.PostProcessing.Value, Invoke);
-            TogglePedestal.setToggleState(Main.VRC_AvatarPedestal.Value, Invoke);
+            if (TogglePickup != null) TogglePickup.setToggleState(Main.VRC_Pickup.Value, Invoke);
+            if (TogglePickupObject != null) TogglePickupObject.setToggleState(Main.VRC_Pickup_Objects.Value, Invoke);
+            if (ToggleVideoPlayers != null) ToggleVideoPlayers.setToggleState(Main.VRC_SyncVideoPlayer.Value, Invoke);
+            if (TogglePens != null) TogglePens.setToggleState(Main.Pens.Value, Invoke);
+            if (ToggleStation != null) ToggleStation.setToggleState(Main.VRC_Station.Value, Invoke);
+            if (ToggleMirror != null) ToggleMirror.setToggleState(Main.VRC_MirrorReflect.Value, Invoke);
+            if (TogglePostProcessing != null) TogglePostProcessing.setToggleState(Main.PostProcessing.Value, Invoke);
+            if (TogglePedestal != null) TogglePedestal.setToggleState(Main.VRC_AvatarPedestal.Value, Invoke);
         }
 
         public static bool WorldWasChanged = false;
