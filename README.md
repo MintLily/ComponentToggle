@@ -53,7 +53,7 @@ CTBlockAction_7 = Block Avatar Pedestals Toggle
 
 # Change Log
 ### v1.7.0
-* Added World creators to add a block for certain features within this mod [How to here](#For World Creators - Block Actions)
+* Added World creators to add a block for certain features within this mod [How to](https://github.com/MintLily/ComponentToggle#for-world-creators---block-actions)
 
 ### v1.6.0
 * Upgraded to MelonLoader v0.4.0
