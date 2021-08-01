@@ -6,8 +6,8 @@ Need to install MelonLoader?<br>
 Click [this link](https://melonwiki.xyz/) to get started!
 
 ### Prerequisites
-MelonLoader: v0.4.0+ (Alpha)<br>
-Game: VRChat (build 1110+)<br>
+MelonLoader: v0.4.2+ (Alpha)<br>
+Game: VRChat (build 1114+)<br>
 
 ### MelonPreferences.cfg (Default Values)
 ```ini
@@ -37,7 +37,24 @@ ShowUIXMenuButton - Toggle a UIExpansionKit Menu Item for opening the menu
 ![Preview 1 - Menu Location](https://kortyboi.com/img/upload/VRChat_ZmRFcJMvyb.jpg)<br>
 ![Preview 2 - Menu Content](https://kortyboi.com/img/upload/VRChat_sojfrXy4Gy.png)<br>
 
+### For World Creators - Block Actions
+Want users to not using certain features? Add empty gameobjects with certain names to block actions.<br>
+```
+CTBlockAction_1 = Block Pickup + Pickup Object Toggle
+CTBlockAction_2 = Block Video Players Toggle
+CTBlockAction_3 = Block Pens Toggle
+CTBlockAction_4 = Block Stations (Chairs) Toggle
+CTBlockAction_5 = Block Mirror Toggle
+CTBlockAction_6 = Block Post Processing Toggle
+CTBlockAction_7 = Block Avatar Pedestals Toggle
+```
+![GameObject List](https://mintlily.lgbt/img/upload/p5Mp5uigsMrx.png)
+<br>
+
 # Change Log
+### v1.7.0
+* Added World creators to add a block for certain features within this mod [How to here](#For World Creators - Block Actions)
+
 ### v1.6.0
 * Upgraded to MelonLoader v0.4.0
 * Added Null Checks for less errors

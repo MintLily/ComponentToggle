@@ -17,7 +17,7 @@ namespace ComponentToggle
         public const string Name = "ComponentToggle";
         public const string Author = "Lily";
         public const string Company = null;
-        public const string Version = "1.6.0";
+        public const string Version = "1.7.0";
         public const string DownloadLink = "https://github.com/MintLily/ComponentToggle";
         public const string Description = "Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, Pens, Chairs, Mirrors, Post Processing, and Avatar Pedestals)";
     }
@@ -33,8 +33,7 @@ namespace ComponentToggle
         public override void OnApplicationStart() // Runs after Game Initialization.
         {
             Instance = this;
-            if (MelonDebug.IsEnabled() || Environment.CommandLine.Contains("--ct.debug"))
-            {
+            if (MelonDebug.IsEnabled() || Environment.CommandLine.Contains("--ct.debug")) {
                 isDebug = true;
                 MelonLogger.Msg("Debug mode is active");
             }
@@ -61,10 +60,7 @@ namespace ComponentToggle
 
             try {
                 ExpansionKitApi.GetExpandedMenu(ExpandedMenu.QuickMenu).AddSimpleButton("Component\nToggle", () =>
-                {
-                    Menu.menu.getMainButton().getGameObject().GetComponent<Button>().onClick.Invoke();
-                }, new Action<GameObject>((GameObject obj) =>
-                {
+                Menu.menu.getMainButton().getGameObject().GetComponent<Button>().onClick.Invoke(), new Action<GameObject>((GameObject obj) => {
                     UIXMenuGO = obj;
                     obj.SetActive(UIXMenu.Value);
                 }));
@@ -105,7 +101,7 @@ namespace ComponentToggle
                     Menu.setAllButtonToggleStates(false);
                     break;
             }
-            MelonCoroutines.Start(Utilities.GetBlockedWorlds.DelayedLoad());
+            MelonCoroutines.Start(Utilities.GetBlockedWorlds.LookForGameObjects());
         }
 
         public override void OnPreferencesSaved()
