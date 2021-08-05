@@ -6,8 +6,8 @@ Need to install MelonLoader?<br>
 Click [this link](https://melonwiki.xyz/) to get started!
 
 ### Prerequisites
-MelonLoader: v0.4.2+ (Alpha)<br>
-Game: VRChat (build 1114+)<br>
+MelonLoader: v0.4.3 (Alpha)<br>
+Game: VRChat (build 1121)<br>
 
 ### MelonPreferences.cfg (Default Values)
 ```ini
@@ -52,6 +52,9 @@ CTBlockAction_7 = Block Avatar Pedestals Toggle
 <br>
 
 # Change Log
+### v1.7.1
+* Recompiled for VRChat build 1121
+
 ### v1.7.0
 * Added World creators to add a block for certain features within this mod [How to](https://github.com/MintLily/ComponentToggle#for-world-creators---block-actions)
 
