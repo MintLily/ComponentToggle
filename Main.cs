@@ -17,9 +17,9 @@ namespace ComponentToggle
         public const string Name = "ComponentToggle";
         public const string Author = "Lily";
         public const string Company = null;
-        public const string Version = "1.7.1";
+        public const string Version = "1.8.0";
         public const string DownloadLink = "https://github.com/MintLily/ComponentToggle";
-        public const string Description = "Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, Pens, Chairs, Mirrors, Post Processing, and Avatar Pedestals)";
+        public const string Description = "Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, Pens, Chairs, Mirrors, Post Processing, Avatar Pedestals, and World Portals)";
     }
 
     public class Main : MelonMod
@@ -27,8 +27,7 @@ namespace ComponentToggle
         private MelonMod Instance;
         public static bool isDebug;
         public static MelonPreferences_Category melon;
-        public static MelonPreferences_Entry<bool> VRC_Pickup, VRC_Pickup_Objects, VRC_SyncVideoPlayer, Pens, VRC_Station, VRC_MirrorReflect, PostProcessing, VRC_AvatarPedestal, UIXMenu;
-        private static GameObject UIXMenuGO;
+        public static MelonPreferences_Entry<bool> VRC_Pickup, VRC_Pickup_Objects, VRC_SyncVideoPlayer, Pens, VRC_Station, VRC_MirrorReflect, PostProcessing, VRC_AvatarPedestal, VRC_Portal, UIXMenu;
 
         public override void OnApplicationStart() // Runs after Game Initialization.
         {
@@ -49,6 +48,7 @@ namespace ComponentToggle
             VRC_MirrorReflect = melon.CreateEntry("ShowMirrors", true, "Show Mirrors");
             PostProcessing = melon.CreateEntry("EnablePostProcessing", true, "Enable Post Processing");
             VRC_AvatarPedestal = melon.CreateEntry("ShowAvatarsPedestals", true, "Show Avatars Pedestals");
+            VRC_Portal = melon.CreateEntry("ShowWorldPortals", true, "Show Portals in worlds (placed by SDK)");
 
             UIXMenu = melon.CreateEntry("ShowUIXMenuButton", true, "Put Menu on UIExpansionKit's Quick Menu");
 
@@ -58,14 +58,7 @@ namespace ComponentToggle
                     MelonLogger.Msg("Not an error > Old Config file does not exist, ignoring function.");
             }
 
-            try {
-                ExpansionKitApi.GetExpandedMenu(ExpandedMenu.QuickMenu).AddSimpleButton("Component\nToggle", () =>
-                Menu.menu.getMainButton().getGameObject().GetComponent<Button>().onClick.Invoke(), new Action<GameObject>((GameObject obj) => {
-                    UIXMenuGO = obj;
-                    obj.SetActive(UIXMenu.Value);
-                }));
-            }
-            catch (Exception e) { MelonLogger.Error("UIXMenu:\n" + e.ToString()); }
+            UIXMenuReplacement.Init();
 
             Utilities.Patches.PatchVRC_Station(); // VRC_Station with HarmonyX
 
@@ -96,6 +89,7 @@ namespace ComponentToggle
                     Components.VRCMirrorReflect.OnLevelLoad();
                     Components.PostProcessing.OnLevelLoad();
                     VRCAvatarPedestal.OnLevelLoad();
+                    Utilities.GetBlockedWorlds.ReCacheAllObjects();
 
                     MelonCoroutines.Start(Menu.OnLevelLoad());
                     Menu.setAllButtonToggleStates(false);
@@ -117,13 +111,14 @@ namespace ComponentToggle
                     " ============== bool VRC_MirrorReflect     = " + VRC_MirrorReflect.Value.ToString() + "\n" +
                     " ============== bool PostProcessing        = " + PostProcessing.Value.ToString() + "\n" +
                     " ============== bool VRC_AvatarPedestal    = " + VRC_AvatarPedestal.Value.ToString() + "\n" +
+                    " ============== bool VRC_Portal            = " + VRC_Portal.Value.ToString() + "\n" +
                     " ============== bool UIXMenu               = " + UIXMenu.Value.ToString() + "\n" +
                     " ====================================================");
             }
 
             Menu.setAllButtonToggleStates(true); // When saved, button toggle states are set, (the bool) the actions of the buttons are invoked
 
-            try { UIXMenuGO.SetActive(UIXMenu.Value); } catch { }
+            try { UIXMenuReplacement.MainMenuBTN.SetActive(UIXMenu.Value); } catch { }
         }
 
         private IEnumerator GetAssembly()
@@ -148,5 +143,7 @@ namespace ComponentToggle
                 yield return null;
             OnUiManagerInit();
         }
+
+        public override void OnApplicationQuit() => MelonPreferences.Save();
     }
 }

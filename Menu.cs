@@ -106,6 +106,16 @@ namespace ComponentToggle
                 VRCAvatarPedestal.Disable();
             }, "TOGGLE: Avatar Pedestals throughout the world");
 
+            TogglePedestal = new QMToggleButton(menu, 1, 2, "Portals", () =>
+            {
+                Main.VRC_Portal.Value = true;
+                Portals.Toggle();
+            }, "Disabled", () =>
+            {
+                Main.VRC_Portal.Value = false;
+                Portals.Toggle();
+            }, "TOGGLE: Portals in worlds; these portals will be the ones pre-place by the world creator with the SDK");
+
             RefreshButton = new QMSingleButton(menu, 4, -2, "Refresh", () =>
             {
                 VRCPickup.OnLevelLoad();
@@ -116,6 +126,7 @@ namespace ComponentToggle
                 _VRCSyncVideoPlayer.OnLevelLoad();
                 VRCAvatarPedestal.OnLevelLoad();
                 VRCMirrorReflect.OnLevelLoad();
+                GetBlockedWorlds.ReCacheAllObjects();
             }, "Pressing this will attempt to recache all objects in the world.\nThis is the same thing as if you rejoin the world.");
             RefreshButton.getGameObject().GetComponent<RectTransform>().sizeDelta /= new Vector2(1.0f, 2.0f);
             RefreshButton.getGameObject().GetComponent<RectTransform>().anchoredPosition += new Vector2(0f, -105f);
@@ -151,7 +162,7 @@ namespace ComponentToggle
             yield break;
         }
 
-        public static void BlockActions(int buttonNumber)
+        internal static void BlockActions(int buttonNumber)
         {
             switch (buttonNumber)
             {
@@ -159,27 +170,35 @@ namespace ComponentToggle
                     TogglePickup.Disabled(true);
                     TogglePickupObject.Disabled(true);
                     VRCPickup.Toggle(true, true);
+                    UIXMenuReplacement.blockPickup = true;
+                    UIXMenuReplacement.blockObject = true;
                     break;
                 case 2:
                     ToggleVideoPlayers.Disabled(true);
                     _VRCSyncVideoPlayer.Toggle(true);
+                    UIXMenuReplacement.blockVid = true;
                     break;
                 case 3:
                     TogglePens.Disabled(true);
                     Pens.Toggle(true);
+                    UIXMenuReplacement.blockPens = true;
                     break;
                 case 4:
                     ToggleStation.Disabled(true);
+                    UIXMenuReplacement.blockChair = true;
                     break;
                 case 5:
                     ToggleMirror.Disabled(true);
                     VRCMirrorReflect.Toggle(true);
+                    UIXMenuReplacement.blockMirror = true;
                     break;
                 case 6:
                     TogglePostProcessing.Disabled(true);
+                    UIXMenuReplacement.blockPP = true;
                     break;
                 case 7:
                     TogglePedestal.Disabled(true);
+                    UIXMenuReplacement.blockAP = true;
                     break;
                 default:
                     TogglePickup.Disabled(false);
@@ -190,6 +209,15 @@ namespace ComponentToggle
                     ToggleMirror.Disabled(false);
                     TogglePostProcessing.Disabled(false);
                     TogglePedestal.Disabled(false);
+
+                    UIXMenuReplacement.blockPickup = false;
+                    UIXMenuReplacement.blockObject = false;
+                    UIXMenuReplacement.blockVid = false;
+                    UIXMenuReplacement.blockPens = false;
+                    UIXMenuReplacement.blockChair = false;
+                    UIXMenuReplacement.blockMirror = false;
+                    UIXMenuReplacement.blockPP = false;
+                    UIXMenuReplacement.blockAP = false;
                     break;
             }
         }

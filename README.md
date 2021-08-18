@@ -1,5 +1,5 @@
 # ComponentToggle
-Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, Pens, Chairs, Mirrors, Post Processing, and Avatar Pedestals)
+Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, Pens, Chairs, Mirrors, Post Processing, Avatar Pedestals, and World Portals)
 
 ### MelonLoader
 Need to install MelonLoader?<br>
@@ -7,7 +7,8 @@ Click [this link](https://melonwiki.xyz/) to get started!
 
 ### Prerequisites
 MelonLoader: v0.4.3 (Alpha)<br>
-Game: VRChat (build 1121)<br>
+Game: VRChat (build 1123)<br>
+Mods: [UI Expansion Kit](https://github.com/knah/VRCMods) v0.3.4+
 
 ### MelonPreferences.cfg (Default Values)
 ```ini
@@ -21,6 +22,7 @@ ShowMirrors = true
 EnablePostProcessing = true
 ShowAvatarsPedestals = true
 ShowUIXMenuButton = true
+ShowWorldPortals = true
 ```
 <br>
 EnablePickup - Allow Pickups<br>
@@ -31,11 +33,12 @@ EnableChairs - Allow yourself to sit in chairs<br>
 ShowMirrors - Show Mirrors<br>
 EnablePostProcessing - Show PostProcessing<br>
 ShowAvatarsPedestals - Show Avatar Pedestals<br>
-ShowUIXMenuButton - Toggle a UIExpansionKit Menu Item for opening the menu
+ShowUIXMenuButton - Toggle a UIExpansionKit Menu Item for opening the menu<br>
+ShowWorldPortals - Toggle Portals in the world that are set by the world creator
 
 ### Preview
-![Preview 1 - Menu Location](https://kortyboi.com/img/upload/VRChat_ZmRFcJMvyb.jpg)<br>
-![Preview 2 - Menu Content](https://kortyboi.com/img/upload/VRChat_sojfrXy4Gy.png)<br>
+![Preview 1 - Menu Location](https://mintlily.lgbt/img/upload/VRChat_ZmRFcJMvyb.jpg)<br>
+![Preview 2 - Menu Content](https://mintlily.lgbt/img/upload/JcjGSVnhMoLC.jpg)<br>
 
 ### For World Creators - Block Actions
 Want users to not using certain features? Add empty gameobjects with certain names to block actions.<br>
@@ -52,6 +55,10 @@ CTBlockAction_7 = Block Avatar Pedestals Toggle
 <br>
 
 # Change Log
+### v1.8.0
+* Added a UIExpansionKit Menu Interface
+* Added World Portal Toggle
+
 ### v1.7.1
 * Recompiled for VRChat build 1121
 
