@@ -38,7 +38,7 @@ ShowWorldPortals - Toggle Portals in the world that are set by the world creator
 
 ### Preview
 ![Preview 1 - Menu Location](https://mintlily.lgbt/img/upload/VRChat_ZmRFcJMvyb.jpg)<br>
-![Preview 2 - Menu Content](https://mintlily.lgbt/img/upload/JcjGSVnhMoLC.jpg)<br>
+![Preview 2 - Menu Content](https://mintlily.lgbt/img/upload/VRChat_sojfrXy4Gy.png)<br>
 
 ### For World Creators - Block Actions
 Want users to not using certain features? Add empty gameobjects with certain names to block actions.<br>
