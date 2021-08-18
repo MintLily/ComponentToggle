@@ -20,9 +20,11 @@ namespace ComponentToggle.Utilities
 
         public static GetWorlds[] Worlds { get; internal set; }
 
+        internal static GameObject[] allWorldGameObjects;
+
         public static void Init() => MelonCoroutines.Start(SummomList());
 
-        private static IEnumerator SummomList()
+        internal static IEnumerator SummomList()
         {
             string url = "https://raw.githubusercontent.com/KortyBoi/ComponentToggle/master/Utilities/Blacklists/Worlds.json";
             WebClient WorldList = new WebClient();
@@ -61,7 +63,7 @@ namespace ComponentToggle.Utilities
 
             while (RoomManager.field_Internal_Static_ApiWorld_0 == null || RoomManager.field_Internal_Static_ApiWorldInstance_0 == null) yield return null;
             yield return new WaitForSecondsRealtime(2);
-            GameObject[] allWorldGameObjects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
+            allWorldGameObjects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
             if (allWorldGameObjects.Any(a => a.name == "CTBlockAction_1")) ComponentToggle.Menu.BlockActions(1);
             if (allWorldGameObjects.Any(a => a.name == "CTBlockAction_2")) ComponentToggle.Menu.BlockActions(2);
             if (allWorldGameObjects.Any(a => a.name == "CTBlockAction_3")) ComponentToggle.Menu.BlockActions(3);
@@ -74,5 +76,7 @@ namespace ComponentToggle.Utilities
 
             yield break;
         }
+
+        public static void ReCacheAllObjects() => allWorldGameObjects = UnityEngine.SceneManagement.SceneManager.GetActiveScene().GetRootGameObjects();
     }
 }

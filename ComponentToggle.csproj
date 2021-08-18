@@ -124,7 +124,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\RubyButtonAPI.cs" />
+    <Compile Include="Components\Portals.cs" />
     <Compile Include="Components\VRC_AvatarPedestal.cs" />
+    <Compile Include="UIXMenuReplacement.cs" />
     <Compile Include="Utilities\Config\CustomConfig.cs" />
     <Compile Include="Utilities\Patches.cs" />
     <Compile Include="Utilities\Utilities.cs" />

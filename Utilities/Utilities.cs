@@ -33,4 +33,14 @@ namespace ComponentToggle.Utilities
             yield break;
         }
     }
+
+    static class Extensions
+    {
+        public static T GetComponentOrInChildren<T>(this GameObject gameObject) where T : Component
+        {
+            T component = gameObject.GetComponent<T>();
+            if (component == null) return gameObject.GetComponentInChildren<T>();
+            return component;
+        }
+    }
 }
