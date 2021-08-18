@@ -6,19 +6,13 @@ namespace ComponentToggle.Components
     {
         public static VRC_Pickup[] stored;
 
-        public static void OnLevelLoad()
-        {
-            Store();
-        }
+        public static void OnLevelLoad() => Store();
 
-        private static void Store()
-        {
-            stored = UnityEngine.Object.FindObjectsOfType<VRC_Pickup>();
-        }
+        private static void Store() => stored = UnityEngine.Object.FindObjectsOfType<VRC_Pickup>();
 
         public static void Toggle(bool tempOn = false, bool exit = false)
         {
-            if (stored == null) Store();
+            Store();
 
             if (exit) return;
             foreach (var gameObject in stored)
