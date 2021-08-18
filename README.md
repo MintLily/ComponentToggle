@@ -115,7 +115,7 @@ CTBlockAction_7 = Block Avatar Pedestals Toggle
 * Initial Release
 
 # Credits
-DubyaDude, Emilia, Tritn - [RubyButtonAPI](https://github.com/DubyaDude/RubyButtonAPI)
+DubyaDude, Emilia, Tritn, MintLily - [RubyButtonAPI](https://github.com/DubyaDude/RubyButtonAPI)
 
 
 
