@@ -22,4 +22,10 @@
 	"WorldName": "Town of Salem",
 	"WorldID": "wrld_42d023dc-1b2d-439a-b741-09113ca0e59a",
 	"buttonNumber": 7
-}]
+},
+{
+	"WorldName": "Midnight Rooftop",
+	"WorldID": "wrld_d29bb0d0-d268-42dc-8365-926f9d485505",
+	"buttonNumber": 8
+}
+]
