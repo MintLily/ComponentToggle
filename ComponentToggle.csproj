@@ -138,7 +138,7 @@
     <Compile Include="Components\VRC_Pickup.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="Menu.cs" />
-    <Compile Include="Utilities\WorldBlacklisting.cs" />
+    <Compile Include="Utilities\WorldLogic.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

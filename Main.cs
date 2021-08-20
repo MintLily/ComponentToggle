@@ -17,7 +17,7 @@ namespace ComponentToggle
         public const string Name = "ComponentToggle";
         public const string Author = "Lily";
         public const string Company = null;
-        public const string Version = "1.8.0";
+        public const string Version = "1.8.1";
         public const string DownloadLink = "https://github.com/MintLily/ComponentToggle";
         public const string Description = "Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, Pens, Chairs, Mirrors, Post Processing, Avatar Pedestals, and World Portals)";
     }
@@ -59,7 +59,6 @@ namespace ComponentToggle
             }
 
             UIXMenuReplacement.Init();
-
             Utilities.Patches.PatchVRC_Station(); // VRC_Station with HarmonyX
 
             MelonLogger.Msg("Initialized!");
@@ -69,7 +68,7 @@ namespace ComponentToggle
         {
             CustomConfig.ConvertAndRemove();
             Menu.Init();
-            Utilities.GetBlockedWorlds.Init();
+            //Utilities.GetBlockedWorlds.Init();
             MelonCoroutines.Start(Utilities.Menu.AllowToolTipTextColor());
         }
 
@@ -89,13 +88,13 @@ namespace ComponentToggle
                     Components.VRCMirrorReflect.OnLevelLoad();
                     Components.PostProcessing.OnLevelLoad();
                     VRCAvatarPedestal.OnLevelLoad();
-                    Utilities.GetBlockedWorlds.ReCacheAllObjects();
+                    Utilities.WorldLogic.ReCacheAllObjects();
 
                     MelonCoroutines.Start(Menu.OnLevelLoad());
                     Menu.setAllButtonToggleStates(false);
                     break;
             }
-            MelonCoroutines.Start(Utilities.GetBlockedWorlds.LookForGameObjects());
+            MelonCoroutines.Start(Utilities.WorldLogic.CheckWorld());
         }
 
         public override void OnPreferencesSaved()

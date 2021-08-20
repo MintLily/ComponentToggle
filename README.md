@@ -50,11 +50,15 @@ CTBlockAction_4 = Block Stations (Chairs) Toggle
 CTBlockAction_5 = Block Mirror Toggle
 CTBlockAction_6 = Block Post Processing Toggle
 CTBlockAction_7 = Block Avatar Pedestals Toggle
+CTBlockAction_8 = Block World Portals Toggle
 ```
 ![GameObject List](https://mintlily.lgbt/img/upload/p5Mp5uigsMrx.png)
 <br>
 
 # Change Log
+### v1.8.1
+* Bug Fixes
+
 ### v1.8.0
 * Added a UIExpansionKit Menu Interface
 * Added World Portal Toggle

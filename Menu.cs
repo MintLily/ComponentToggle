@@ -11,16 +11,8 @@ namespace ComponentToggle
     internal class Menu
     {
         public static QMNestedButton menu;
-        public static QMToggleButton TogglePickup;
-        public static QMToggleButton TogglePickupObject;
-        public static QMToggleButton ToggleVideoPlayers;
-        public static QMToggleButton TogglePens;
-        public static QMToggleButton ToggleStation;
-        public static QMToggleButton ToggleMirror;
-        public static QMToggleButton TogglePostProcessing;
-        public static QMToggleButton TogglePedestal;
+        public static QMToggleButton TogglePickup, TogglePickupObject, ToggleVideoPlayers, TogglePens, ToggleStation, ToggleMirror, TogglePostProcessing, TogglePedestal, TogglePortal;
         private static QMSingleButton RefreshButton;
-        public static QMSingleButton RefreshVidButton;
 
         public static void Init()
         {
@@ -106,7 +98,7 @@ namespace ComponentToggle
                 VRCAvatarPedestal.Disable();
             }, "TOGGLE: Avatar Pedestals throughout the world");
 
-            TogglePedestal = new QMToggleButton(menu, 1, 2, "Portals", () =>
+            TogglePortal = new QMToggleButton(menu, 1, 2, "Portals", () =>
             {
                 Main.VRC_Portal.Value = true;
                 Portals.Toggle();
@@ -126,7 +118,7 @@ namespace ComponentToggle
                 _VRCSyncVideoPlayer.OnLevelLoad();
                 VRCAvatarPedestal.OnLevelLoad();
                 VRCMirrorReflect.OnLevelLoad();
-                GetBlockedWorlds.ReCacheAllObjects();
+                WorldLogic.ReCacheAllObjects();
             }, "Pressing this will attempt to recache all objects in the world.\nThis is the same thing as if you rejoin the world.");
             RefreshButton.getGameObject().GetComponent<RectTransform>().sizeDelta /= new Vector2(1.0f, 2.0f);
             RefreshButton.getGameObject().GetComponent<RectTransform>().anchoredPosition += new Vector2(0f, -105f);
@@ -147,6 +139,7 @@ namespace ComponentToggle
             if (ToggleMirror != null) ToggleMirror.setToggleState(Main.VRC_MirrorReflect.Value, Invoke);
             if (TogglePostProcessing != null) TogglePostProcessing.setToggleState(Main.PostProcessing.Value, Invoke);
             if (TogglePedestal != null) TogglePedestal.setToggleState(Main.VRC_AvatarPedestal.Value, Invoke);
+            if (TogglePortal != null) TogglePortal.setToggleState(Main.VRC_Portal.Value, Invoke);
         }
 
         public static bool WorldWasChanged = false;
@@ -200,6 +193,11 @@ namespace ComponentToggle
                     TogglePedestal.Disabled(true);
                     UIXMenuReplacement.blockAP = true;
                     break;
+                case 8:
+                    TogglePortal.Disabled(true);
+                    Portals.Toggle(true);
+                    UIXMenuReplacement.blockPortal = true;
+                    break;
                 default:
                     TogglePickup.Disabled(false);
                     TogglePickupObject.Disabled(false);
@@ -209,6 +207,7 @@ namespace ComponentToggle
                     ToggleMirror.Disabled(false);
                     TogglePostProcessing.Disabled(false);
                     TogglePedestal.Disabled(false);
+                    TogglePortal.Disabled(false);
 
                     UIXMenuReplacement.blockPickup = false;
                     UIXMenuReplacement.blockObject = false;
@@ -218,6 +217,7 @@ namespace ComponentToggle
                     UIXMenuReplacement.blockMirror = false;
                     UIXMenuReplacement.blockPP = false;
                     UIXMenuReplacement.blockAP = false;
+                    UIXMenuReplacement.blockPortal = false;
                     break;
             }
         }
