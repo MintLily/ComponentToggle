@@ -98,16 +98,6 @@ namespace ComponentToggle
                 VRCAvatarPedestal.Disable();
             }, "TOGGLE: Avatar Pedestals throughout the world");
 
-            TogglePortal = new QMToggleButton(menu, 1, 2, "Portals", () =>
-            {
-                Main.VRC_Portal.Value = true;
-                Portals.Toggle();
-            }, "Disabled", () =>
-            {
-                Main.VRC_Portal.Value = false;
-                Portals.Toggle();
-            }, "TOGGLE: Portals in worlds; these portals will be the ones pre-place by the world creator with the SDK");
-
             RefreshButton = new QMSingleButton(menu, 4, -2, "Refresh", () =>
             {
                 VRCPickup.OnLevelLoad();
@@ -139,7 +129,6 @@ namespace ComponentToggle
             if (ToggleMirror != null) ToggleMirror.setToggleState(Main.VRC_MirrorReflect.Value, Invoke);
             if (TogglePostProcessing != null) TogglePostProcessing.setToggleState(Main.PostProcessing.Value, Invoke);
             if (TogglePedestal != null) TogglePedestal.setToggleState(Main.VRC_AvatarPedestal.Value, Invoke);
-            if (TogglePortal != null) TogglePortal.setToggleState(Main.VRC_Portal.Value, Invoke);
         }
 
         public static bool WorldWasChanged = false;
@@ -193,11 +182,6 @@ namespace ComponentToggle
                     TogglePedestal.Disabled(true);
                     UIXMenuReplacement.blockAP = true;
                     break;
-                case 8:
-                    TogglePortal.Disabled(true);
-                    Portals.Toggle(true);
-                    UIXMenuReplacement.blockPortal = true;
-                    break;
                 default:
                     TogglePickup.Disabled(false);
                     TogglePickupObject.Disabled(false);
@@ -207,7 +191,6 @@ namespace ComponentToggle
                     ToggleMirror.Disabled(false);
                     TogglePostProcessing.Disabled(false);
                     TogglePedestal.Disabled(false);
-                    TogglePortal.Disabled(false);
 
                     UIXMenuReplacement.blockPickup = false;
                     UIXMenuReplacement.blockObject = false;

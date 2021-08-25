@@ -18,7 +18,7 @@ namespace ComponentToggle.Components
 
         public static void OnLevelLoad()
         {
-            Markers = UnityEngine.Object.FindObjectsOfType<Markers>();
+            Markers = Object.FindObjectsOfType<Markers>();
 
             penArray = new List<GameObject>();
             QVPens = GameObject.Find("QvPen");
@@ -51,25 +51,18 @@ namespace ComponentToggle.Components
 
         public static void Toggle(bool tempOn = false)
         {
-            if (penArray == null) OnLevelLoad();
+            if (penArray == null || Markers == null) OnLevelLoad();
 
-            foreach (var gameObject in penArray)
-            {
-                if (tempOn)
-                    gameObject.gameObject.SetActive(true);
-                else
-                    gameObject.gameObject.SetActive(Main.Pens.Value);
+            foreach (var g in penArray) {
+                if (tempOn) g.gameObject.SetActive(true);
+                else g.gameObject.SetActive(Main.Pens.Value);
             }
 
-            foreach (var gameObject in Markers)
-            {
-                if (tempOn)
-                {
+            foreach (var gameObject in Markers) {
+                if (tempOn) {
                     gameObject.GetComponent<Markers>().enabled = true;
                     gameObject.gameObject.SetActive(true);
-                }
-                else
-                {
+                } else {
                     gameObject.GetComponent<Markers>().enabled = Main.Pens.Value;
                     gameObject.gameObject.SetActive(Main.Pens.Value);
                 }

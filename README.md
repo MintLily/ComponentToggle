@@ -1,5 +1,5 @@
 # ComponentToggle
-Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, Pens, Chairs, Mirrors, Post Processing, Avatar Pedestals, and World Portals)
+Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, Pens, Chairs, Mirrors, Post Processing, and Avatar Pedestals)
 
 ### MelonLoader
 Need to install MelonLoader?<br>
@@ -22,7 +22,6 @@ ShowMirrors = true
 EnablePostProcessing = true
 ShowAvatarsPedestals = true
 ShowUIXMenuButton = true
-ShowWorldPortals = true
 ```
 <br>
 EnablePickup - Allow Pickups<br>
@@ -33,8 +32,7 @@ EnableChairs - Allow yourself to sit in chairs<br>
 ShowMirrors - Show Mirrors<br>
 EnablePostProcessing - Show PostProcessing<br>
 ShowAvatarsPedestals - Show Avatar Pedestals<br>
-ShowUIXMenuButton - Toggle a UIExpansionKit Menu Item for opening the menu<br>
-ShowWorldPortals - Toggle Portals in the world that are set by the world creator
+ShowUIXMenuButton - Toggle a UIExpansionKit Menu Item for opening the menu
 
 ### Preview
 ![Preview 1 - Menu Location](https://mintlily.lgbt/img/upload/VRChat_ZmRFcJMvyb.jpg)<br>
@@ -50,12 +48,15 @@ CTBlockAction_4 = Block Stations (Chairs) Toggle
 CTBlockAction_5 = Block Mirror Toggle
 CTBlockAction_6 = Block Post Processing Toggle
 CTBlockAction_7 = Block Avatar Pedestals Toggle
-CTBlockAction_8 = Block World Portals Toggle
 ```
 ![GameObject List](https://mintlily.lgbt/img/upload/p5Mp5uigsMrx.png)
 <br>
 
 # Change Log
+### v1.8.2
+* Rolled back portal toggling
+* Fixed UIX menu inconsistency
+
 ### v1.8.1
 * Bug Fixes
 

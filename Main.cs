@@ -17,9 +17,9 @@ namespace ComponentToggle
         public const string Name = "ComponentToggle";
         public const string Author = "Lily";
         public const string Company = null;
-        public const string Version = "1.8.1";
+        public const string Version = "1.8.2";
         public const string DownloadLink = "https://github.com/MintLily/ComponentToggle";
-        public const string Description = "Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, Pens, Chairs, Mirrors, Post Processing, Avatar Pedestals, and World Portals)";
+        public const string Description = "Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, Pens, Chairs, Mirrors, Post Processing, and Avatar Pedestals)";
     }
 
     public class Main : MelonMod
@@ -27,7 +27,7 @@ namespace ComponentToggle
         private MelonMod Instance;
         public static bool isDebug;
         public static MelonPreferences_Category melon;
-        public static MelonPreferences_Entry<bool> VRC_Pickup, VRC_Pickup_Objects, VRC_SyncVideoPlayer, Pens, VRC_Station, VRC_MirrorReflect, PostProcessing, VRC_AvatarPedestal, VRC_Portal, UIXMenu;
+        public static MelonPreferences_Entry<bool> VRC_Pickup, VRC_Pickup_Objects, VRC_SyncVideoPlayer, Pens, VRC_Station, VRC_MirrorReflect, PostProcessing, VRC_AvatarPedestal, UIXMenu;
 
         public override void OnApplicationStart() // Runs after Game Initialization.
         {
@@ -48,9 +48,8 @@ namespace ComponentToggle
             VRC_MirrorReflect = melon.CreateEntry("ShowMirrors", true, "Show Mirrors");
             PostProcessing = melon.CreateEntry("EnablePostProcessing", true, "Enable Post Processing");
             VRC_AvatarPedestal = melon.CreateEntry("ShowAvatarsPedestals", true, "Show Avatars Pedestals");
-            VRC_Portal = melon.CreateEntry("ShowWorldPortals", true, "Show Portals in worlds (placed by SDK)");
 
-            UIXMenu = melon.CreateEntry("ShowUIXMenuButton", true, "Put Menu on UIExpansionKit's Quick Menu");
+            UIXMenu = melon.CreateEntry("ShowUIXMenuButton", true, "Use a Menu built by UIExpansionKit");
 
             try { CustomConfig.Load(); }
             catch {
@@ -110,7 +109,6 @@ namespace ComponentToggle
                     " ============== bool VRC_MirrorReflect     = " + VRC_MirrorReflect.Value.ToString() + "\n" +
                     " ============== bool PostProcessing        = " + PostProcessing.Value.ToString() + "\n" +
                     " ============== bool VRC_AvatarPedestal    = " + VRC_AvatarPedestal.Value.ToString() + "\n" +
-                    " ============== bool VRC_Portal            = " + VRC_Portal.Value.ToString() + "\n" +
                     " ============== bool UIXMenu               = " + UIXMenu.Value.ToString() + "\n" +
                     " ====================================================");
             }

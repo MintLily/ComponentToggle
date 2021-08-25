@@ -24,9 +24,8 @@ namespace ComponentToggle
 
         static Dictionary<string, Transform> buttons = new Dictionary<string, Transform>();
 
-        static bool ranOnce;
         internal static GameObject MainMenuBTN;
-        internal static bool blockMenu, blockPickup, blockObject, blockVid, blockPens, blockChair, blockMirror, blockPP, blockAP, blockPortal;
+        internal static bool blockPickup, blockObject, blockVid, blockPens, blockChair, blockMirror, blockPP, blockAP, blockPortal;
 
         static void UIXButton(int UIXExpandedMenuENUM, string UIXGetMethod, string buttonText, Action action, Action<GameObject> goAction)
         {
@@ -41,16 +40,16 @@ namespace ComponentToggle
             if (MelonHandler.Mods.Any(m => m.Info.Name.Equals("UI Expansion Kit"))) {
                 try {
                     UIXButton(0, "RegisterSimpleMenuButton", "Component\nToggle", new Action(() => {
-                        if (blockMenu) return;
-                        if (!ranOnce) {
+                        if (menu == null) {
                             TheMenu();
-                            ranOnce = true;
-                        } else if (ranOnce) UpdateText();
-                        menu.Show();
+                            menu.Show();
+                        } else menu.Show();
+                        UpdateText();
                     }), new Action<GameObject>((GameObject obj) => {
                         MainMenuBTN = obj;
                         obj.SetActive(Main.UIXMenu.Value);
                     }));
+                    TheMenu();
                 } catch (Exception e) { MelonLogger.Error("UIXMenu:\n" + e.ToString()); }
             }
         }
@@ -93,7 +92,8 @@ namespace ComponentToggle
             menu.AddSimpleButton($"Pens\n{(Main.Pens.Value ? color("#00ff00", "ON") : color("red", "OFF"))}", () => {
                 if (blockPens) return;
                 Main.Pens.Value = !Main.Pens.Value;
-                Pens.Toggle();
+                //Pens.Toggle();
+                Menu.TogglePens.setToggleState(Main.Pens.Value, true);
                 UpdateText();
             }, (button) => buttons["pens"] = button.transform);
 
@@ -120,16 +120,6 @@ namespace ComponentToggle
                 TogglePedestals();
                 UpdateText();
             }, (button) => buttons["ap"] = button.transform);
-
-            menu.AddSimpleButton($"Portals\n{(Main.VRC_Portal.Value ? color("#00ff00", "ON") : color("red", "OFF"))}", () => {
-                if (blockPortal) return;
-                Main.VRC_Portal.Value = !Main.VRC_Portal.Value;
-                Portals.Toggle();
-                UpdateText();
-            }, (button) => buttons["portal"] = button.transform);
-            menu.AddSpacer();
-            menu.AddSpacer();
-            menu.AddSpacer();
         }
 
         static void TogglePedestals()
@@ -171,7 +161,10 @@ namespace ComponentToggle
             try
             {
                 if (blockPens) text("pens", color(grey, "DISABLED"));
-                else text("pens", $"Pens\n{(Main.Pens.Value ? color("#00ff00", "ON") : color("red", "OFF"))}");
+                else {
+                    if (Menu.TogglePens != null) text("pens", $"Pens\n{(Menu.TogglePens.btnOn.activeSelf ? color("#00ff00", "ON") : color("red", "OFF"))}");
+                    else text("pens", $"Pens\n{(Main.Pens.Value ? color("#00ff00", "ON") : color("red", "OFF"))}");
+                }
             }
             catch (Exception e) { MelonLogger.Error($"{e}"); }
             
@@ -200,13 +193,6 @@ namespace ComponentToggle
             {
                 if (blockAP) text("ap", color(grey, "DISABLED"));
                 else text("ap", $"Avatar\nPedestals\n{(Main.VRC_AvatarPedestal.Value ? color("#00ff00", "ON") : color("red", "OFF"))}");
-            }
-            catch (Exception e) { MelonLogger.Error($"{e}"); }
-
-            try
-            {
-                if (blockPortal) text("portal", color(grey, "DISABLED"));
-                else text("portal", $"Portals\n{(Main.VRC_Portal.Value ? color("#00ff00", "ON") : color("red", "OFF"))}");
             }
             catch (Exception e) { MelonLogger.Error($"{e}"); }
         }

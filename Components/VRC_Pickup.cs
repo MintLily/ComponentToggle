@@ -14,13 +14,13 @@ namespace ComponentToggle.Components
         {
             Store();
 
-            if (exit) return;
             foreach (var gameObject in stored)
             {
                 if (tempOn)
                 {
                     gameObject.GetComponent<VRC_Pickup>().pickupable = true;
                     gameObject.gameObject.SetActive(true);
+                    if (exit) return;
                 }
                 else
                 {
