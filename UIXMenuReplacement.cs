@@ -13,10 +13,6 @@ namespace ComponentToggle
 
     class UIXMenuReplacement
     {
-        struct LayoutDescriptionCustom {
-            public static LayoutDescription QuickMenu = new LayoutDescription { NumColumns = 4, RowHeight = 380 / 4, NumRows = 4 };
-        }
-
         public static ICustomShowableLayoutedMenu menu = ExpansionKitApi.CreateCustomQuickMenuPage(LayoutDescription.QuickMenu4Columns);
 
         static string color(string c, string s) { return $"<color={c}>{s}</color> "; }
