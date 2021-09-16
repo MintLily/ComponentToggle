@@ -12,17 +12,13 @@ namespace ComponentToggle.Components
 
         public static void Toggle(bool tempOn = false, bool exit = false)
         {
-            Store();
+            if (stored == null) Store();
             if (exit) return;
-            foreach (var gameObject in stored)
-            {
-                if (tempOn)
-                {
+            foreach (var gameObject in stored) {
+                if (tempOn) {
                     gameObject.GetComponent<VRC_Pickup>().pickupable = true;
                     gameObject.gameObject.SetActive(true);
-                }
-                else
-                {
+                } else {
                     gameObject.GetComponent<VRC_Pickup>().pickupable = Main.VRC_Pickup.Value;
                     gameObject.gameObject.SetActive(Main.VRC_Pickup_Objects.Value);
                 }

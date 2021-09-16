@@ -54,6 +54,7 @@ namespace ComponentToggle
         {
             buttons.Clear();
             menu.AddSimpleButton(color("red", "Close") + "Menu", () => menu.Hide());
+
             menu.AddSpacer();
             menu.AddSpacer();
             menu.AddSimpleButton("Refresh", () => {
