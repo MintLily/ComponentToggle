@@ -123,10 +123,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\RubyButtonAPI.cs" />
     <Compile Include="Components\VRC_AvatarPedestal.cs" />
     <Compile Include="UIXMenuReplacement.cs" />
-    <Compile Include="Utilities\Config\CustomConfig.cs" />
     <Compile Include="Utilities\Patches.cs" />
     <Compile Include="Utilities\Utilities.cs" />
     <Compile Include="AssemblyInfo.cs" />
@@ -138,6 +136,9 @@
     <Compile Include="Main.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Utilities\WorldLogic.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="API\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

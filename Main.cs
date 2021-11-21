@@ -4,11 +4,11 @@ using System.Reflection;
 using System.Collections;
 using System.Linq;
 using ComponentToggle.Components;
-using ComponentToggle.Utilities.Config;
 using System.IO;
 using UIExpansionKit.API;
 using UnityEngine.UI;
 using UnityEngine;
+//using VRCApplicationSetup = MonoBehaviourPublicApStInStBoGaBoInObStUnique;
 
 namespace ComponentToggle
 {
@@ -17,7 +17,7 @@ namespace ComponentToggle
         public const string Name = "ComponentToggle";
         public const string Author = "Lily";
         public const string Company = null;
-        public const string Version = "1.8.4";
+        public const string Version = "1.9.0";
         public const string DownloadLink = "https://github.com/MintLily/ComponentToggle";
         public const string Description = "Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, Pens, Chairs, Mirrors, Post Processing, and Avatar Pedestals)";
     }
@@ -27,7 +27,7 @@ namespace ComponentToggle
         private MelonMod Instance;
         public static bool isDebug;
         public static MelonPreferences_Category melon;
-        public static MelonPreferences_Entry<bool> VRC_Pickup, VRC_Pickup_Objects, VRC_SyncVideoPlayer, Pens, VRC_Station, VRC_MirrorReflect, PostProcessing, VRC_AvatarPedestal, UIXMenu;
+        public static MelonPreferences_Entry<bool> VRC_Pickup, VRC_Pickup_Objects, VRC_SyncVideoPlayer, Pens, VRC_Station, VRC_MirrorReflect, PostProcessing, VRC_AvatarPedestal;
 
         public override void OnApplicationStart() // Runs after Game Initialization.
         {
@@ -36,8 +36,6 @@ namespace ComponentToggle
                 isDebug = true;
                 MelonLogger.Msg("Debug mode is active");
             }
-
-            MelonCoroutines.Start(GetAssembly());
 
             melon = MelonPreferences.CreateCategory(BuildInfo.Name, BuildInfo.Name);
             VRC_Pickup = melon.CreateEntry("EnablePickup", true, "Enable Pickup");
@@ -49,26 +47,10 @@ namespace ComponentToggle
             PostProcessing = melon.CreateEntry("EnablePostProcessing", true, "Enable Post Processing");
             VRC_AvatarPedestal = melon.CreateEntry("ShowAvatarsPedestals", true, "Show Avatars Pedestals");
 
-            UIXMenu = melon.CreateEntry("ShowUIXMenuButton", true, "Use a Menu built by UIExpansionKit");
-
-            try { CustomConfig.Load(); }
-            catch {
-                if (!File.Exists(CustomConfig.final) && isDebug)
-                    MelonLogger.Msg("Not an error > Old Config file does not exist, ignoring function.");
-            }
-
             UIXMenuReplacement.Init();
             Utilities.Patches.PatchVRC_Station(); // VRC_Station with HarmonyX
 
             MelonLogger.Msg("Initialized!");
-        }
-
-        private void OnUiManagerInit() 
-        {
-            CustomConfig.ConvertAndRemove();
-            Menu.Init();
-            //Utilities.GetBlockedWorlds.Init();
-            MelonCoroutines.Start(Utilities.Menu.AllowToolTipTextColor());
         }
 
         public override void OnSceneWasLoaded(int buildIndex, string sceneName)
@@ -90,7 +72,7 @@ namespace ComponentToggle
                     Utilities.WorldLogic.ReCacheAllObjects();
 
                     MelonCoroutines.Start(Menu.OnLevelLoad());
-                    Menu.setAllButtonToggleStates(false);
+                    //Menu.setAllButtonToggleStates(false);
                     break;
             }
             MelonCoroutines.Start(Utilities.WorldLogic.CheckWorld());
@@ -109,36 +91,8 @@ namespace ComponentToggle
                     " ============== bool VRC_MirrorReflect     = " + VRC_MirrorReflect.Value.ToString() + "\n" +
                     " ============== bool PostProcessing        = " + PostProcessing.Value.ToString() + "\n" +
                     " ============== bool VRC_AvatarPedestal    = " + VRC_AvatarPedestal.Value.ToString() + "\n" +
-                    " ============== bool UIXMenu               = " + UIXMenu.Value.ToString() + "\n" +
                     " ====================================================");
             }
-
-            Menu.setAllButtonToggleStates(true); // When saved, button toggle states are set, (the bool) the actions of the buttons are invoked
-
-            try { UIXMenuReplacement.MainMenuBTN.SetActive(UIXMenu.Value); } catch { }
-        }
-
-        private IEnumerator GetAssembly()
-        {
-            Assembly assemblyCSharp = null;
-            while (true) {
-                assemblyCSharp = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(assembly => assembly.GetName().Name == "Assembly-CSharp");
-                if (assemblyCSharp == null)
-                    yield return null;
-                else
-                    break;
-            }
-
-            MelonCoroutines.Start(WaitForUiManagerInit(assemblyCSharp));
-        }
-
-        private IEnumerator WaitForUiManagerInit(Assembly assemblyCSharp)
-        {
-            Type vrcUiManager = assemblyCSharp.GetType("VRCUiManager");
-            PropertyInfo uiManagerSingleton = vrcUiManager.GetProperties().First(pi => pi.PropertyType == vrcUiManager);
-            while (uiManagerSingleton.GetValue(null) == null)
-                yield return null;
-            OnUiManagerInit();
         }
 
         public override void OnApplicationQuit() => MelonPreferences.Save();

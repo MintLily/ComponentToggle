@@ -9,8 +9,6 @@ using ComponentToggle.Components;
 
 namespace ComponentToggle
 {
-    interface Layout : ICustomLayoutedMenu, IShowableMenu { }
-
     class UIXMenuReplacement
     {
         public static ICustomShowableLayoutedMenu menu = ExpansionKitApi.CreateCustomQuickMenuPage(LayoutDescription.QuickMenu4Columns);
@@ -41,10 +39,7 @@ namespace ComponentToggle
                             menu.Show();
                         } else menu.Show();
                         UpdateText();
-                    }), new Action<GameObject>((GameObject obj) => {
-                        MainMenuBTN = obj;
-                        obj.SetActive(Main.UIXMenu.Value);
-                    }));
+                    }), null);
                     TheMenu();
                 } catch (Exception e) { MelonLogger.Error("UIXMenu:\n" + e.ToString()); }
             }
@@ -70,50 +65,49 @@ namespace ComponentToggle
 
             menu.AddSimpleButton($"VRC_Pickup\n{(Main.VRC_Pickup.Value ? color("#00ff00", "ON") : color("red", "OFF"))}", () => {
                 if (blockPickup) return;
-                Main.VRC_Pickup.Value = !Main.VRC_Pickup.Value;
+                SetValues(Main.VRC_Pickup, !Main.VRC_Pickup.Value);
                 VRCPickup.Toggle();
                 UpdateText();
             }, (button) => buttons["pickups"] = button.transform);
             menu.AddSimpleButton($"VRC_Pickup\nObjects\n{(Main.VRC_Pickup_Objects.Value ? color("#00ff00", "ON") : color("red", "OFF"))}", () => {
                 if (blockObject) return;
-                Main.VRC_Pickup_Objects.Value = !Main.VRC_Pickup_Objects.Value;
+                SetValues(Main.VRC_Pickup_Objects, !Main.VRC_Pickup_Objects.Value);
                 VRCPickup.Toggle();
                 UpdateText();
             }, (button) => buttons["objects"] = button.transform);
             menu.AddSimpleButton($"Video Players\n{(Main.VRC_SyncVideoPlayer.Value ? color("#00ff00", "ON") : color("red", "OFF"))}", () => {
                 if (blockVid) return;
-                Main.VRC_SyncVideoPlayer.Value = !Main.VRC_SyncVideoPlayer.Value;
+                SetValues(Main.VRC_SyncVideoPlayer, !Main.VRC_SyncVideoPlayer.Value);
                 _VRCSyncVideoPlayer.Toggle();
                 UpdateText();
             }, (button) => buttons["vid"] = button.transform);
             menu.AddSimpleButton($"Pens\n{(Main.Pens.Value ? color("#00ff00", "ON") : color("red", "OFF"))}", () => {
                 if (blockPens) return;
-                Main.Pens.Value = !Main.Pens.Value;
-                //Pens.Toggle();
-                Menu.TogglePens.setToggleState(Main.Pens.Value, true);
+                SetValues(Main.Pens, !Main.Pens.Value);
+                TogglePens();
                 UpdateText();
             }, (button) => buttons["pens"] = button.transform);
 
             menu.AddSimpleButton($"Chairs\n{(Main.VRC_Station.Value ? color("#00ff00", "ON") : color("red", "OFF"))}", () => {
                 if (blockChair) return;
-                Main.VRC_Station.Value = !Main.VRC_Station.Value;
+                SetValues(Main.VRC_Station, !Main.VRC_Station.Value);
                 UpdateText();
             }, (button) => buttons["chairs"] = button.transform);
             menu.AddSimpleButton($"Mirrors\n{(Main.VRC_MirrorReflect.Value ? color("#00ff00", "ON") : color("red", "OFF"))}", () => {
                 if (blockMirror) return;
-                Main.VRC_MirrorReflect.Value = !Main.VRC_MirrorReflect.Value;
+                SetValues(Main.VRC_MirrorReflect, !Main.VRC_MirrorReflect.Value);
                 VRCMirrorReflect.Toggle();
                 UpdateText();
             }, (button) => buttons["mirrors"] = button.transform);
             menu.AddSimpleButton($"Post\nProcessing\n{(Main.PostProcessing.Value ? color("#00ff00", "ON") : color("red", "OFF"))}", () => {
                 if (blockPP) return;
-                Main.PostProcessing.Value = !Main.PostProcessing.Value;
+                SetValues(Main.PostProcessing, !Main.PostProcessing.Value);
                 PostProcessing.Toggle();
                 UpdateText();
             }, (button) => buttons["pp"] = button.transform);
             menu.AddSimpleButton($"Avatar\nPedestals\n{(Main.VRC_AvatarPedestal.Value ? color("#00ff00", "ON") : color("red", "OFF"))}", () => {
                 if (blockAP) return;
-                Main.VRC_AvatarPedestal.Value = !Main.VRC_AvatarPedestal.Value;
+                SetValues(Main.VRC_AvatarPedestal, !Main.VRC_AvatarPedestal.Value);
                 TogglePedestals();
                 UpdateText();
             }, (button) => buttons["ap"] = button.transform);
@@ -125,11 +119,13 @@ namespace ComponentToggle
             else VRCAvatarPedestal.Disable();
         }
 
+        static void TogglePens() => Pens.Toggle(Main.Pens.Value);
+
         static string text(string buttonName, string text)
         {
             if (buttons[buttonName] != null)
                 return buttons[buttonName].GetComponentInChildren<Text>().text = text;
-            else return null;
+            return null;
         }
 
         static void UpdateText()
@@ -158,10 +154,7 @@ namespace ComponentToggle
             try
             {
                 if (blockPens) text("pens", color(grey, "DISABLED"));
-                else {
-                    if (Menu.TogglePens != null) text("pens", $"Pens\n{(Menu.TogglePens.btnOn.activeSelf ? color("#00ff00", "ON") : color("red", "OFF"))}");
-                    else text("pens", $"Pens\n{(Main.Pens.Value ? color("#00ff00", "ON") : color("red", "OFF"))}");
-                }
+                else text("pens", $"Pens\n{(Main.Pens.Value ? color("#00ff00", "ON") : color("red", "OFF"))}");
             }
             catch (Exception e) { MelonLogger.Error($"{e}"); }
             
@@ -193,5 +186,7 @@ namespace ComponentToggle
             }
             catch (Exception e) { MelonLogger.Error($"{e}"); }
         }
+
+        static void SetValues(MelonPreferences_Entry en1, bool setEntryValue) => MelonPreferences.GetEntry<bool>(Main.melon.Identifier, en1.Identifier).Value = setEntryValue;
     }
 }
