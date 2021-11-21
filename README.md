@@ -34,7 +34,7 @@ EnablePostProcessing - Show PostProcessing<br>
 ShowAvatarsPedestals - Show Avatar Pedestals<br>
 ShowUIXMenuButton - Toggle a UIExpansionKit Menu Item for opening the menu
 
-### Preview
+### Preview (Pictures Outdated)
 ![Preview 1 - Menu Location](https://mintlily.lgbt/img/upload/VRChat_ZmRFcJMvyb.jpg)<br>
 ![Preview 2 - Menu Content](https://mintlily.lgbt/img/upload/JcjGSVnhMoLC.jpg)<br>
 
@@ -124,7 +124,7 @@ CTBlockAction_7 = Block Avatar Pedestals Toggle
 * Initial Release
 
 # Credits
-DubyaDude, Emilia, Tritn - [RubyButtonAPI](https://github.com/DubyaDude/RubyButtonAPI)
+null
 
 
 
