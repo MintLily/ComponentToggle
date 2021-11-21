@@ -7,8 +7,8 @@ Click [this link](https://melonwiki.xyz/) to get started!
 
 ### Prerequisites
 MelonLoader: v0.4.3 (Alpha)<br>
-Game: VRChat (build 1123)<br>
-Mods: [UI Expansion Kit](https://github.com/knah/VRCMods) v0.3.4+
+Game: VRChat (build 1151)<br>
+Mods: [UI Expansion Kit](https://github.com/knah/VRCMods) v0.4.0+
 
 ### MelonPreferences.cfg (Default Values)
 ```ini
@@ -53,6 +53,10 @@ CTBlockAction_7 = Block Avatar Pedestals Toggle
 <br>
 
 # Change Log
+### v1.9.0
+* Added VRChat build 1151 compatibility
+* Removed RubyButtonAPI
+
 ### v1.8.2
 * Rolled back portal toggling
 * Fixed UIX menu inconsistency
