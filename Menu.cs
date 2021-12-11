@@ -59,7 +59,7 @@ namespace ComponentToggle
                     UIXMenuReplacement.blockMirror = false;
                     UIXMenuReplacement.blockPP = false;
                     UIXMenuReplacement.blockAP = false;
-                    UIXMenuReplacement.blockPortal = false;
+                    //UIXMenuReplacement.blockPortal = false;
                     break;
             }
         }
