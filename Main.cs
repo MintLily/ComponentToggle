@@ -17,7 +17,7 @@ namespace ComponentToggle
         public const string Name = "ComponentToggle";
         public const string Author = "Lily";
         public const string Company = null;
-        public const string Version = "1.9.0";
+        public const string Version = "1.10.0";
         public const string DownloadLink = "https://github.com/MintLily/ComponentToggle";
         public const string Description = "Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, Pens, Chairs, Mirrors, Post Processing, and Avatar Pedestals)";
     }
