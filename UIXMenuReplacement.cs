@@ -19,28 +19,23 @@ namespace ComponentToggle
         static Dictionary<string, Transform> buttons = new Dictionary<string, Transform>();
 
         internal static GameObject MainMenuBTN;
-        internal static bool blockPickup, blockObject, blockVid, blockPens, blockChair, blockMirror, blockPP, blockAP, blockPortal;
-
-        static void UIXButton(int UIXExpandedMenuENUM, string UIXGetMethod, string buttonText, Action action, Action<GameObject> goAction)
-        {
-            MelonHandler.Mods.First(i => i.Info.Name == "UI Expansion Kit").Assembly.GetType("UIExpansionKit.API.ExpansionKitApi").GetMethod(UIXGetMethod,
-                System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static).Invoke(null, new object[] {
-                    UIXExpandedMenuENUM, buttonText, new Action(() => action()), new Action<GameObject>((GameObject obj) => goAction(obj))
-                });
-        }
+        internal static bool blockPickup, blockObject, blockVid, blockPens, blockChair, blockMirror, blockPP, blockAP;//, blockPortal;
+        private static bool runOnce_start;
 
         public static void Init()
         {
             if (MelonHandler.Mods.Any(m => m.Info.Name.Equals("UI Expansion Kit"))) {
                 try {
-                    UIXButton(0, "RegisterSimpleMenuButton", "Component\nToggle", new Action(() => {
-                        if (menu == null) {
+                    ExpansionKitApi.GetExpandedMenu(ExpandedMenu.QuickMenu).AddSimpleButton("Component\nToggle", () => {
+                        if (!runOnce_start) {
                             TheMenu();
                             menu.Show();
-                        } else menu.Show();
-                        UpdateText();
-                    }), null);
-                    TheMenu();
+                            runOnce_start = true;
+                        } else {
+                            menu.Show();
+                            UpdateText();
+                        }
+                    });
                 } catch (Exception e) { MelonLogger.Error("UIXMenu:\n" + e.ToString()); }
             }
         }
