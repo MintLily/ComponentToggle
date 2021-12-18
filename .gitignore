@@ -1,6 +1,11 @@
 .vs/
-Output/
-obj/
+ComponentToggle_old/Output/
+ComponentToggle_old/obj/
+ComponentToggle_old/bin/
 .git/
-Utilities/WebAdded/README.md
+ComponentToggle_old/Utilities/WebAdded/
 .idea/
+ComponentToggleExtended/obj/
+ComponentToggleExtended/Output/
+ComponentToggleExtended/bin/
+ComponentToggle.json

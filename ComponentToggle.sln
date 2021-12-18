@@ -1,17 +1,26 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30225.117
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.31911.260
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentToggle", "ComponentToggle.csproj", "{095732D0-1256-447D-928F-66B9CB400F82}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentToggle", "ComponentToggle_old\ComponentToggle.csproj", "{095732D0-1256-447D-928F-66B9CB400F82}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComponentToggleExtended", "ComponentToggleExtended\ComponentToggleExtended.csproj", "{17200B04-56EB-45C9-8AB3-625ADA2349DE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{095732D0-1256-447D-928F-66B9CB400F82}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{095732D0-1256-447D-928F-66B9CB400F82}.Debug|Any CPU.Build.0 = Release|Any CPU
 		{095732D0-1256-447D-928F-66B9CB400F82}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{095732D0-1256-447D-928F-66B9CB400F82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17200B04-56EB-45C9-8AB3-625ADA2349DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17200B04-56EB-45C9-8AB3-625ADA2349DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17200B04-56EB-45C9-8AB3-625ADA2349DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17200B04-56EB-45C9-8AB3-625ADA2349DE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
