@@ -34,9 +34,8 @@ EnablePostProcessing - Show PostProcessing<br>
 ShowAvatarsPedestals - Show Avatar Pedestals<br>
 ShowUIXMenuButton - Toggle a UIExpansionKit Menu Item for opening the menu
 
-### Preview (Pictures Outdated)
-![Preview 1 - Menu Location](https://mintlily.lgbt/img/upload/VRChat_ZmRFcJMvyb.jpg)<br>
-![Preview 2 - Menu Content](https://mintlily.lgbt/img/upload/JcjGSVnhMoLC.jpg)<br>
+### Preview
+![Preview - Menu Content](https://mintlily.lgbt/img/upload/waDaVE8kpjar.jpg)<br>
 
 ### For World Creators - Block Actions
 Want users to not using certain features? Add empty gameobjects with certain names to block actions.<br>
@@ -53,6 +52,10 @@ CTBlockAction_7 = Block Avatar Pedestals Toggle
 <br>
 
 # Change Log
+### v2.0.0
+* Rewrote the entire mod
+* Fixed issues with toggles not being consistent
+
 ### v1.10.0
 * Added VRChat build 1160 compatibility
 * Fixed other Errors
