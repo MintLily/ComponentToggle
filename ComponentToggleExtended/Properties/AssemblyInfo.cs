@@ -44,4 +44,4 @@ using System.Runtime.InteropServices;
     ComponentToggleExtended.BuildInfo.Version,
     ComponentToggleExtended.BuildInfo.Author,
     ComponentToggleExtended.BuildInfo.DownloadLink)]
-[assembly: MelonColor(ConsoleColor.Magenta)]
+//[assembly: MelonColor(ConsoleColor.Magenta)]

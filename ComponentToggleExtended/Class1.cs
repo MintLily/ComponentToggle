@@ -7,7 +7,7 @@ namespace ComponentToggleExtended {
         public const string Name = "ComponentToggle";
         public const string Author = "Lily";
         public const string Company = null;
-        public const string Version = "2.0.0";
+        public const string Version = "2.0.1";
         public const string DownloadLink = "https://github.com/MintLily/ComponentToggle";
         public const string Description = "Toggle certain components with VRChat. (Toggle Pickup, Pickup Objects, Video Players, Pens, Chairs, Mirrors, Post Processing, and Avatar Pedestals)";
     }
@@ -17,12 +17,13 @@ namespace ComponentToggleExtended {
         public static bool isDebug;
         public static MelonPreferences_Category melon;
         public static MelonPreferences_Entry<bool> VRC_Pickup, VRC_Pickup_Objects, VRC_SyncVideoPlayer, Pens, VRC_Station, VRC_MirrorReflect, PostProcessing, VRC_AvatarPedestal;
+        public static readonly MelonLogger.Instance Log = new MelonLogger.Instance(BuildInfo.Name, ConsoleColor.Magenta);
 
         public override void OnApplicationStart() {
             Instance = this;
             if (MelonDebug.IsEnabled() || Environment.CommandLine.Contains("--ct.debug")) {
                 isDebug = true;
-                Log("Debug mode is active", isDebug);
+                Logs("Debug mode is active", isDebug);
             }
 
             melon = MelonPreferences.CreateCategory(BuildInfo.Name, BuildInfo.Name);
@@ -39,10 +40,10 @@ namespace ComponentToggleExtended {
             Patches.PatchVRC_Station(); // VRC_Station with HarmonyX
         }
 
-        public void Log(string message, bool debug = false) {
+        public static void Logs(string message, bool debug = false) {
             if (debug)
-                LoggerInstance.Msg(ConsoleColor.Green, message);
-            else LoggerInstance.Msg(message);
+                Log.Msg(ConsoleColor.Green, message);
+            else Log.Msg(message);
         }
 
         public static bool WorldWasChanged = false;
