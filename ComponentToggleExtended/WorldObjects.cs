@@ -99,24 +99,24 @@ namespace ComponentToggleExtended {
             Pens = (from x in Object.FindObjectsOfType<GameObject>()
                      where x.name.ToLower().Contains("pen") | x.name.ToLower().Contains("marker") | x.name.ToLower().Contains("grip")
                      select x).ToArray();
-            if (Main.isDebug) {
-                MelonLogger.Msg(ConsoleColor.Green, $"Mirrors Counted:                  {countMirrors}");
-                MelonLogger.Msg(ConsoleColor.Green, $"Video Player Components Counted:  {countVidCom}");
-                MelonLogger.Msg(ConsoleColor.Green, $"Pedestals Counted:                {countPedestals}");
-                MelonLogger.Msg(ConsoleColor.Green, $"Pens Counted:                     {Pens.Length}");
-                MelonLogger.Msg(ConsoleColor.Green, $"Pickups Counted:                  {pickups.Count}");
-            }
+
+            MelonCoroutines.Start(DelayedEvent());
+
+            Main.Logs($"Mirrors Counted:                  {countMirrors}", Main.isDebug);
+            Main.Logs($"Video Player Components Counted:  {countVidCom}", Main.isDebug);
+            Main.Logs($"Pedestals Counted:                {countPedestals}", Main.isDebug);
+            Main.Logs($"Pens Counted:                     {Pens.Length}", Main.isDebug);
+            Main.Logs($"Pickups Counted:                  {pickups.Count}", Main.isDebug);
         }
 
-        public static IEnumerator DelayedEvent() {
+        private static IEnumerator DelayedEvent() {
             yield return new WaitForSeconds(5);
             if (Main.WorldWasChanged) {
                 Main.WorldWasChanged = false;
                 foreach (Camera cam in Camera.allCameras) {
                     if (cam.GetComponent<PostProcessLayer>() != null) {
                         if (Main.PostProcessing.Value != cam.GetComponent<PostProcessLayer>().enabled) {
-                            if (Main.isDebug)
-                                MelonLogger.Msg(Main.PostProcessing.Value ? "Auto Removed Post Processing" : "Auto Re-added Post Processing");
+                            Main.Logs(Main.PostProcessing.Value ? "Auto Removed Post Processing" : "Auto Re-added Post Processing", Main.isDebug);
                             cam.GetComponent<PostProcessLayer>().enabled = Main.PostProcessing.Value;
                         }
                     }
@@ -147,8 +147,7 @@ namespace ComponentToggleExtended {
                     foreach (Camera cam in Camera.allCameras) {
                         if (cam.GetComponent<PostProcessLayer>() != null) {
                             if (Main.PostProcessing.Value != cam.GetComponent<PostProcessLayer>().enabled) {
-                                if (Main.isDebug)
-                                    MelonLogger.Msg(Main.PostProcessing.Value ? "Removed Post Processing" : "Re-added Post Processing");
+                                Main.Logs(Main.PostProcessing.Value ? "Auto Removed Post Processing" : "Auto Re-added Post Processing", Main.isDebug);
                                 cam.GetComponent<PostProcessLayer>().enabled = Main.PostProcessing.Value;
                             }
                         }
