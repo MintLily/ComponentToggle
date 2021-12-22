@@ -52,6 +52,10 @@ CTBlockAction_7 = Block Avatar Pedestals Toggle
 <br>
 
 # Change Log
+### v2.0.1
+* Added MelonLogger.Instance Logging
+* Fixed Updating Post Processing on World Join
+
 ### v2.0.0
 * Rewrote the entire mod
 * Fixed issues with toggles not being consistent
@@ -132,8 +136,3 @@ CTBlockAction_7 = Block Avatar Pedestals Toggle
 
 # Credits
 null
-
-
-
-## Stay Updated
-Stay update to date with all my mods by joining my [discord server](https://discord.gg/qkycuAMUGS) today.
